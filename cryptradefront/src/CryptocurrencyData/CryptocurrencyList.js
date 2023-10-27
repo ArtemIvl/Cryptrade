@@ -6,7 +6,7 @@ function CryptocurrencyList() {
   const [cryptoData, setCryptoData] = useState([]);
 
   useEffect(() => {
-    axios.get('https://localhost:7145/api/Crypto/get-cached-crypto-data')
+    axios.get('https://localhost:7145/api/Crypto/get-crypto-data')
       .then(response => {
         setCryptoData(response.data);
       })
