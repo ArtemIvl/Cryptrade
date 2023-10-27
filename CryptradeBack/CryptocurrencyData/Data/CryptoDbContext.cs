@@ -1,5 +1,5 @@
 ﻿using System;
-using CryptocurrencyData.Models;
+using CryptocurrencyData.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CryptocurrencyData.Data
@@ -14,4 +14,3 @@ namespace CryptocurrencyData.Data
 		public DbSet<CryptoData> CryptoData { get; set; }
 	}
 }
-

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CryptocurrencyData.Models
+namespace CryptocurrencyData.Entity
 {
 	public class CryptoData
 	{
@@ -13,5 +13,3 @@ namespace CryptocurrencyData.Models
         public DateTime lastUpdated { get; set; }
     }
 }
-
-
