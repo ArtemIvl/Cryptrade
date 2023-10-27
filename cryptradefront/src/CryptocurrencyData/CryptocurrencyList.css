@@ -1,0 +1,51 @@
+/* Style for the container of the cryptocurrency list */
+.crypto-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Style for each cryptocurrency item */
+  .crypto-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  /* Style for cryptocurrency properties */
+  .crypto-property {
+    font-weight: bold;
+  }
+  
+  /* Style for the name */
+  .crypto-name {
+    color: #333;
+  }
+  
+  /* Style for the symbol */
+  .crypto-symbol {
+    color: #666;
+  }
+  
+  /* Style for the price */
+  .crypto-price {
+    color: #007bff;
+  }
+  
+  /* Style for the 24-hour volume */
+  .crypto-volume {
+    color: #28a745;
+  }
+  
+  /* Style for the market cap */
+  .crypto-market-cap {
+    color: #f39c12;
+  }
+  
+  /* Style for the 24-hour price change */
+  .crypto-price-change {
+    color: #dc3545;
+  }
+  
