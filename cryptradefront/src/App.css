@@ -1,10 +1,6 @@
-.App {
-  text-align: center;
-}
-
 .header {
-  height: 9.9vh;
   font-size: 50px;
+  text-align: center;
   font-weight: bold;
   padding: 20px;
   color: #fff;
