@@ -1,0 +1,30 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 80px;
+    background-color: #fff;
+    font-size: 20px;
+}
+
+.container-left {
+    display: flex;
+    width: 50%;
+    gap: 50px;
+}
+
+.container-right {
+    display: flex;
+    width: 50%;
+    justify-content: end;
+    gap: 50px;
+}
+
+.container-left span {
+    cursor: pointer;
+}
+
+.container-right span {
+    cursor: pointer;
+}
