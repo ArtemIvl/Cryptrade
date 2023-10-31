@@ -1,8 +1,21 @@
-/* Style for the container of the cryptocurrency list */
+.cryptocurrencies-container {
+  width: 90%;
+  margin: auto;
+  color: white;
+}
+
 .crypto-list {
     list-style: none;
     padding: 0;
   }
+
+.crypto-labels {
+  margin: 0;
+  margin-top: -9px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+}
   
   /* Style for each cryptocurrency item */
   .crypto-item {

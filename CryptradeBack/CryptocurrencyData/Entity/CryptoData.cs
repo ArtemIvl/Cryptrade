@@ -10,6 +10,8 @@ namespace CryptocurrencyData.Entity
 		public double marketCap { get; set; }
 		public double volume24h { get; set; }
 		public double percentChange24h { get; set; }
+		public double? circulatingSupply { get; set; }
+		public int? cmcRank { get; set; }
         public DateTime lastUpdated { get; set; }
     }
 }

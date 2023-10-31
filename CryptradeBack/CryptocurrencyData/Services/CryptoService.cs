@@ -69,6 +69,8 @@ namespace CryptocurrencyData.Services
                     marketCap = freshData.quote.usd.market_cap,
                     volume24h = freshData.quote.usd.volume_24h,
                     percentChange24h = freshData.quote.usd.percent_change_24h,
+                    circulatingSupply = freshData.circulating_supply,
+                    cmcRank = freshData.cmc_rank,
                     lastUpdated = DateTime.Now
                 }).ToList();
 
@@ -103,6 +105,8 @@ namespace CryptocurrencyData.Services
                         existingData.marketCap = freshData.marketCap;
                         existingData.volume24h = freshData.volume24h;
                         existingData.percentChange24h = freshData.percentChange24h;
+                        existingData.circulatingSupply = freshData.circulatingSupply;
+                        existingData.cmcRank = freshData.cmcRank;
                         existingData.lastUpdated = DateTime.Now;
                     }
                 }
