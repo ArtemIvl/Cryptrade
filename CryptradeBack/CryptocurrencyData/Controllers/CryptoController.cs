@@ -1,4 +1,5 @@
 ﻿using System;
+using CryptocurrencyData.Entity;
 using CryptocurrencyData.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,6 +52,26 @@ namespace CryptocurrencyData.Controllers
             {
                 var searchRsult = await _cryptoService.SearchCrypto(searchTerm);
                 return Ok(searchRsult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred: " + ex.ToString() });
+            }
+        }
+
+        [HttpGet("get-crypto-by-name/{symbol}")]
+        public async Task<IActionResult> GetCryptoBySymbol(string symbol)
+        {
+            try
+            {
+                var cryptoResult = await _cryptoService.GetCryptoBySymbol(symbol);
+
+                if (cryptoResult == null)
+                {
+                    return NotFound("Cryptocurrency not found.");
+                }
+
+                return Ok(cryptoResult);
             }
             catch (Exception ex)
             {

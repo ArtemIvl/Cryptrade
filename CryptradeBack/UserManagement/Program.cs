@@ -1,14 +1,40 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using UserManagement.Data;
+using System.Text;
+using UserManagement.Utility;
+using UserManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddScoped<UserService>();
 builder.Services.AddControllers();
 
 // Configuration for database connection
 builder.Configuration.AddJsonFile("appsettings.json");
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = false; // Change to true in production
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"], // Your issuer
+        ValidAudience = builder.Configuration["Jwt:Audience"], // Your audience
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])) // Use the static key here
+    };
+});
 
 // Configure the DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -40,8 +66,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Add middleware
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();

@@ -4,7 +4,7 @@ import axios from 'axios';
 // import { Visibility } from '@mui/icons-material';
 import './RegistrationLoginForm.css';
 
-const RegistrationLoginForm = () => {
+const RegistrationLoginForm = ({handleLoginClick, setIsLoggedIn}) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -41,16 +41,21 @@ const RegistrationLoginForm = () => {
     // Make an API request to your ASP.NET Core microservice to register the user
     try {
       const response = await axios.post('https://localhost:7036/api/user/login', {
-        loginEmail,
-        loginPassword,
+        email: loginEmail,
+        password: loginPassword,
       });
 
       // Handle successful registration, e.g., show a success message
       console.log('Login successful', response.data);
+      const token = response.data.token; // Ensure this matches the actual key the token is sent with
+      localStorage.setItem('token', token);
+      setIsLoggedIn(true);
+      handleLoginClick();
       alert('Login successful');
     } catch (error) {
       // Handle registration error, e.g., show an error message
-      console.error('Login error', error);
+      console.error('Login error', error.response.data);
+      console.log(loginEmail, loginPassword)
       alert(`Login unsuccessful ${error}`);
     }
   };
@@ -62,13 +67,14 @@ const RegistrationLoginForm = () => {
     }
 
 return (
+  <div className='overlay'>
     <div className='login-container'>
         <div className='text-container'>
           <div className='method-container'>
           <label className={formType === 'login' ? 'login-text active' : 'login-text'} onClick={() => setFormType('login')}>Log In</label>
           <label className={formType === 'register' ? 'login-text active' : 'login-text'} onClick={() => setFormType('register')}>Sign Up</label>
           </div>
-          <span className="visibility-login" onClick={togglePassword}></span>
+          <span className="visibility-login" onClick={handleLoginClick}>X</span>
         </div>
         {formType === 'register' && (
           <>
@@ -146,6 +152,7 @@ return (
           </button>
         </>
         )}
+        </div>
         </div>
     );
         };

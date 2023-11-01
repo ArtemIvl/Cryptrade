@@ -149,6 +149,19 @@ namespace CryptocurrencyData.Services
                 throw ex;
             }
         }
+
+        public async Task<CryptoData> GetCryptoBySymbol(string symbol)
+        {
+            try
+            {
+                var cryptoResult = await _context.CryptoData.FirstOrDefaultAsync(c => c.symbol == symbol);
+                return cryptoResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
 

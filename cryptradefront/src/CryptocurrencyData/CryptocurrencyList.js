@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 import "./CryptocurrencyList.css"
 
@@ -6,6 +8,7 @@ function CryptocurrencyList() {
   const [cryptoData, setCryptoData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -55,6 +58,10 @@ function CryptocurrencyList() {
     }
   };
 
+  const handleCryptoClick = (symbol) => {
+    navigate(`/cryptocurrency/${symbol}`);
+  };
+
   return (
     <div className='cryptocurrencies-container'>
       <h1>Today's cryptocurrencies by Market Capitalizaiton</h1>
@@ -74,7 +81,7 @@ function CryptocurrencyList() {
         <p>Loading...</p>
       ) : (
       <ul className="crypto-list">
-        <l1 className="crypto-labels">
+        <li className="crypto-labels">
         <p className="crypto-property">#</p>
             <p className="crypto-property">Name</p>
             <p className="crypto-property">Price</p>
@@ -82,10 +89,10 @@ function CryptocurrencyList() {
             <p className="crypto-property">Market Cap</p>
             <p className="crypto-property">Volume 24h</p>
             <p className="crypto-property">Circulating Supply</p>
-        </l1>
+        </li>
         <hr />
         {cryptoData.map(item => (
-          <li key={item.id} className="crypto-item">
+          <li key={item.id} className="crypto-item" onClick={() => handleCryptoClick(item.symbol)}>
             <p className='crypto-property'>{item.id}</p>
             <p className="crypto-property">{item.name} {item.symbol}</p>
             <p className="crypto-property">{item.price} $</p>

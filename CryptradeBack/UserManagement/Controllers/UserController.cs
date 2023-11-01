@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UserManagement.Data;
-using UserManagement.Entity;
 using UserManagement.Models;
 using UserManagement.Services;
 
@@ -42,20 +42,51 @@ namespace UserManagement.Controllers
         {
             try
             {
-                var user = _userService.AuthenticateUser(model);
-                if (user == null)
+                var _token = _userService.AuthenticateUser(model);
+                if (_token == null)
                 {
                     return Unauthorized("Invalid username or password.");
                 }
 
-                // Implement token generation or session management for authentication.
-                // Return a token or session information to the client.
-
-                return Ok("Login successful");
+                return Ok(new { token = _token}); // return token to the client
             }
             catch (Exception ex)
             {
                 return BadRequest($"Login failed: {ex.Message}");
+            }
+        }
+
+        [HttpGet("check-auth")]
+        [Authorize]
+        public IActionResult CheckAuthentication()
+        {
+            return Ok("User is authenticated");
+        }
+
+        [HttpGet("profile")]
+        [Authorize]
+        public IActionResult GetUserData()
+        {
+            try
+            {
+                // Extract user's identity from the token
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                // Fetch user data based on the user ID
+                var userData = _userService.GetUserDataById(userId);
+
+                if (userData != null)
+                {
+                    return Ok(userData);
+                }
+                else
+                {
+                    return NotFound("User data not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Getting data failed: {ex.Message}");
             }
         }
 
