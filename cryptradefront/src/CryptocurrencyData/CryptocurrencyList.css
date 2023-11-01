@@ -19,12 +19,8 @@
   
   /* Style for each cryptocurrency item */
   .crypto-item {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px 0;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.75fr 0.5fr 1fr 1fr 1fr;
   }
   
   /* Style for cryptocurrency properties */

@@ -124,6 +124,31 @@ namespace CryptocurrencyData.Services
             // Define logic to check if the data is stale
             return (DateTime.Now - lastUpdated) > TimeSpan.FromMinutes(60);
         }
+
+        public async Task<List<CryptoData>> SortByPriceChangeDescending()
+        {
+            var sortedData = _context.CryptoData.OrderByDescending(crypto => crypto.percentChange24h).ToList();
+            return sortedData;
+        }
+
+        public async Task <List<CryptoData>> SortByVolume24hDescending()
+        {
+            var sortedData = _context.CryptoData.OrderByDescending(crypto => crypto.volume24h).ToList();
+            return sortedData;
+        }
+
+        public async Task<List<CryptoData>> SearchCrypto(string searchTerm)
+        {
+            try
+            {
+                var searchResult = await _context.CryptoData.Where
+                    (crypto => crypto.name.Contains(searchTerm) || crypto.symbol.Contains(searchTerm)).ToListAsync();
+                return searchResult;
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
 

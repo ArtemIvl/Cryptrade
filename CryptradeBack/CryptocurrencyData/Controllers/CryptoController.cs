@@ -29,6 +29,34 @@ namespace CryptocurrencyData.Controllers
                 return StatusCode(500, new { message = "An error occurred while fetching data." + ex.ToString() });
             }
         }
+
+        [HttpGet("get-sorted-by-price-data")]
+        public async Task<IActionResult> SortByPriceChange()
+        {
+            var sortedData = await _cryptoService.SortByPriceChangeDescending();
+            return Ok(sortedData);
+        }
+
+        [HttpGet("get-sorted-by-volume-data")]
+        public async Task<IActionResult> SortByVolume24h()
+        {
+            var sortedData = await _cryptoService.SortByVolume24hDescending();
+            return Ok(sortedData);
+        }
+
+        [HttpGet("search-crypto")]
+        public async Task<IActionResult> SearchCrypto([FromQuery] string searchTerm)
+        {
+            try
+            {
+                var searchRsult = await _cryptoService.SearchCrypto(searchTerm);
+                return Ok(searchRsult);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred: " + ex.ToString() });
+            }
+        }
     }
 }
 
