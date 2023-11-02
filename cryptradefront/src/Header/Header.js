@@ -5,6 +5,7 @@ import './Header.css'
 function Header({ handleLoginClick, isLoggedIn, handleLogoutClick }) {
 
   return (
+    <>
     <div className='header'>
       <div className='container-left'>
         <span>Cryptrade</span>
@@ -15,11 +16,12 @@ function Header({ handleLoginClick, isLoggedIn, handleLogoutClick }) {
       </div>
       <div className='container-right'>
         <span>Portfolio</span>
-        <span>Search Bar</span>
-        {isLoggedIn ? <Link to='/profile'><span>Profile</span></Link> : <span/>}
+        <input className='search-bar' placeholder='Search'></input>
+        {isLoggedIn ? <Link to='/profile'><span>Profile</span></Link> : null}
         {isLoggedIn ? <span onClick={handleLogoutClick}>Sing Out</span> : <span onClick={handleLoginClick}>Sign in</span>}
       </div>
     </div>
+    </>
   )
 }
 

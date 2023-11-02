@@ -1,7 +1,11 @@
 .cryptocurrencies-container {
   width: 90%;
   margin: auto;
-  color: white;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
 }
 
 .crypto-list {
@@ -15,6 +19,8 @@
   display: flex;
   justify-content: space-between;
   padding: 0;
+  font-size: 14px;
+  font-weight: 700;
 }
   
   /* Style for each cryptocurrency item */
@@ -25,7 +31,6 @@
   
   /* Style for cryptocurrency properties */
   .crypto-property {
-    font-weight: bold;
   }
   
   /* Style for the name */

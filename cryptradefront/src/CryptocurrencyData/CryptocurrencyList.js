@@ -64,7 +64,7 @@ function CryptocurrencyList() {
 
   return (
     <div className='cryptocurrencies-container'>
-      <h1>Today's cryptocurrencies by Market Capitalizaiton</h1>
+      <h1 className='title'>Today's cryptocurrencies by Market Capitalizaiton</h1>
       <hr />
       <div className="filters">
         <button onClick={handleSortByPriceChange}>Sort by Price Change</button>
