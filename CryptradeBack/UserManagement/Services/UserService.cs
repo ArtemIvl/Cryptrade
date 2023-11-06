@@ -76,6 +76,36 @@ namespace UserManagement.Services
             return null; // Return null if user data not found
         }
 
+        public void UpdateUserData(string userId, string newName, string newEmail)
+        {
+            var user = _context.Users.Find(Convert.ToInt32(userId));
+
+            if (user != null)
+            {
+                if (_context.Users.Any(u => u.email == newEmail && u.id != Convert.ToInt32(userId)))
+                {
+                    throw new Exception("Email is already in use.");
+                }
+                else
+                {
+                    user.name = newName;
+                    user.email = newEmail;
+                    _context.SaveChanges();
+                }
+            }
+        }
+
+        public void DeleteUser(string userId)
+        {
+            var user = _context.Users.Find(Convert.ToInt32(userId));
+
+            if (user != null)
+            {
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+            }
+        }
+
         public string GenerateJwtToken(string userId, string userRole)
         {
             var jwtKey = _configuration["Jwt:Key"];

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UserManagement.Models;
 using UserManagement.Services;
@@ -17,9 +18,11 @@ namespace UserManagement.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserController(UserService userService)
+        public UserController(UserService userService, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _userService = userService;
         }
         // POST api/values
@@ -90,31 +93,52 @@ namespace UserManagement.Controllers
             }
         }
 
-
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpPut("update")]
+        [Authorize]
+        public IActionResult UpdateUserData([FromBody] UserDataModel model)
         {
-            return new string[] { "value1", "value2" };
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId != null)
+            {
+                try
+                {
+                    _userService.UpdateUserData(userId, model.name, model.email);
+                    return Ok("User data updated successfully");
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest($"Failed to update user data: {ex.Message}");
+                }
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpDelete("delete")]
+        [Authorize]
+        public IActionResult DeleteUser()
         {
-            return "value";
-        }
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            if (userId != null)
+            {
+                try
+                {
+                    _userService.DeleteUser(userId);
+                    return Ok("User account deleted successfully");
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest($"Failed to delete user account: {ex.Message}");
+                }
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
     }
 }

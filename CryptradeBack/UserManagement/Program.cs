@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 
 // Configuration for database connection
 builder.Configuration.AddJsonFile("appsettings.json");
