@@ -8,7 +8,6 @@ import "./CryptocurrencyList.css"
 function CryptocurrencyList() {
   const [cryptoData, setCryptoData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,15 +47,6 @@ function CryptocurrencyList() {
         console.error('Error sorting by volume 24h:', error);
         setIsLoading(false);
       });
-  };
-
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get(`https://localhost:7145/api/Crypto/search-crypto?searchTerm=${searchTerm}`);
-      setCryptoData(response.data);
-    } catch (error) {
-      console.error('Error searching data:', error);
-    }
   };
 
   const handleCryptoClick = (symbol) => {
