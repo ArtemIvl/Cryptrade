@@ -6,6 +6,7 @@ import RegistrationLoginForm from './UserManagement/RegistrationLoginForm';
 import CryptocurrencyList from './CryptocurrencyData/CryptocurrencyList';
 import SingleCrypto from './CryptocurrencyData/SingleCrypto';
 import ProfilePage from './Profile/ProfilePage';
+import Portfolio from './Portfolio/PortfolioPage';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -39,6 +40,7 @@ function App() {
         <Route path="/cryptocurrency" element={<CryptocurrencyList />} />
         <Route path="/cryptocurrency/:symbol" element={<SingleCrypto />} />
         <Route path="/profile" element={<ProfilePage isLoggedIn={isLoggedIn}/>} />
+        <Route path="/portfolio" element={<Portfolio/>} />
       </Routes>
     </Router>
     </div>

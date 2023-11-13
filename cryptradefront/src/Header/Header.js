@@ -15,7 +15,9 @@ function Header({ handleLoginClick, isLoggedIn, handleLogoutClick }) {
         <span>Mock Trading</span>
       </div>
       <div className='container-right'>
+        <Link to='/portfolio'>
         <span>Portfolio</span>
+        </Link>
         <input className='search-bar' placeholder='Search'></input>
         {isLoggedIn ? <Link to='/profile'><span>Profile</span></Link> : null}
         {isLoggedIn ? <span onClick={handleLogoutClick}>Sign Out</span> : <span onClick={handleLoginClick}>Sign in</span>}
