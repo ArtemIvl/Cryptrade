@@ -1,9 +1,9 @@
 ﻿using System;
 using PortfolioManagement.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using PortfolioManagement.Entity;
 using PortfolioManagement.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace PortfolioManagement.Controllers
 {
@@ -18,13 +18,14 @@ namespace PortfolioManagement.Controllers
 			_portfolioService = portfolioService;
 		}
 
-
-        [HttpGet("{userId}/{portfolioId}")]
-        public IActionResult GetPortfolioById(int userId, int portfolioId)
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetPortfolioById()
         {
             try
             {
-                var portfolio = _portfolioService.GetPortfolioById(portfolioId, userId);
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var portfolio = _portfolioService.GetPortfolioById(Convert.ToInt32(userId));
 
                 if (portfolio != null)
                 {
@@ -41,11 +42,13 @@ namespace PortfolioManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult CreatePortfolio([FromBody] PortfolioDataModel model)
         {
             try
             {
-                _portfolioService.CreatePortfolio(model);
+                var modelUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                _portfolioService.CreatePortfolio(model, Convert.ToInt32(modelUserId));
                 return Ok("Creation successful");
             }
             catch (Exception ex)
@@ -54,7 +57,8 @@ namespace PortfolioManagement.Controllers
             }
         }
 
-        [HttpPut("{portfolioId}")]
+        [HttpPut]
+        [Authorize]
         public IActionResult UpdatePortfolio(int portfolioId, [FromBody] PortfolioDataModel model)
         {
             try
@@ -68,12 +72,14 @@ namespace PortfolioManagement.Controllers
             }
         }
 
-        [HttpDelete("{userId}/{portfolioId}")]
-        public IActionResult DeletePortfolio(int userId, int portfolioId)
+        [HttpDelete]
+        [Authorize]
+        public IActionResult DeletePortfolio(int portfolioId)
         {
             try
             {
-                _portfolioService.DeletePortfolio(userId, portfolioId);
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                _portfolioService.DeletePortfolio(portfolioId, Convert.ToInt32(userId));
                 return Ok("Portfolio  deleted successfully");
             }
             catch (Exception ex)

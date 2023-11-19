@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using JwtAuthenticationManager;
+using JwtAuthenticationManager.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UserManagement.Models;
 using UserManagement.Services;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace UserManagement.Controllers
 {
@@ -18,14 +13,14 @@ namespace UserManagement.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly JwtTokenHandler _jwtTokenHandler;
 
-        public UserController(UserService userService, IHttpContextAccessor httpContextAccessor)
+        public UserController(UserService userService, JwtTokenHandler jwtTokenHandler)
         {
-            _httpContextAccessor = httpContextAccessor;
             _userService = userService;
+            _jwtTokenHandler = jwtTokenHandler;
         }
-        // POST api/values
+
         [HttpPost("register")]
         public IActionResult Register([FromBody] UserRegisterModel model)
         {
@@ -41,32 +36,29 @@ namespace UserManagement.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] UserLoginModel model)
+        public async Task<ActionResult<AuthenticationResponse?>> LoginAsync([FromBody] AuthenticationRequest request)
+        {
+            await _jwtTokenHandler.GetAllUsers();
+            var response = _jwtTokenHandler.GenerateJwtToken(request);
+            if (response == null) return Unauthorized();
+            return Ok(response);
+        }
+
+        [HttpGet("all-users")]
+        public IActionResult GetAllUsers()
         {
             try
             {
-                var _token = _userService.AuthenticateUser(model);
-                if (_token == null)
-                {
-                    return Unauthorized("Invalid username or password.");
-                }
-
-                return Ok(new { token = _token}); // return token to the client
+                var userData = _userService.GetAllUsers();
+                return Ok(userData);
             }
             catch (Exception ex)
             {
-                return BadRequest($"Login failed: {ex.Message}");
+                return BadRequest($"Getting data failed: {ex.Message}");
             }
         }
 
-        [HttpGet("check-auth")]
-        [Authorize]
-        public IActionResult CheckAuthentication()
-        {
-            return Ok("User is authenticated");
-        }
-
-        [HttpGet("profile")]
+        [HttpGet]
         [Authorize]
         public IActionResult GetUserData()
         {
@@ -93,7 +85,7 @@ namespace UserManagement.Controllers
             }
         }
 
-        [HttpPut("update")]
+        [HttpPut]
         [Authorize]
         public IActionResult UpdateUserData([FromBody] UserDataModel model)
         {
@@ -117,7 +109,7 @@ namespace UserManagement.Controllers
             }
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete]
         [Authorize]
         public IActionResult DeleteUser()
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using PortfolioManagement.Data;
 using PortfolioManagement.Entity;
 using PortfolioManagement.Models;
@@ -14,9 +15,9 @@ namespace PortfolioManagement.Services
             _context = context;
         }
 
-        public PortfolioDataModel GetPortfolioById(int portfolioId, int userId)
+        public PortfolioDataModel GetPortfolioById(int userId)
         {
-            var portfolio = _context.Portfolios.FirstOrDefault(p => p.id == portfolioId && p.userId == userId);
+            var portfolio = _context.Portfolios.FirstOrDefault(p => p.userId == userId);
 
             if (portfolio != null)
             {
@@ -24,7 +25,9 @@ namespace PortfolioManagement.Services
                 {
                     name = portfolio.name,
                     description = portfolio.description,
-                    totalValue = portfolio.totalValue
+                    totalValue = portfolio.totalValue,
+                    userId = portfolio.userId,
+                    id = portfolio.id
                 };
 
                 return portfolioData;
@@ -33,12 +36,14 @@ namespace PortfolioManagement.Services
             return null;
         }
 
-        public void CreatePortfolio(PortfolioDataModel model)
+        public void CreatePortfolio(PortfolioDataModel model, int modelUserId)
         {
             var newPortfolio = new Portfolio
             {
                 name = model.name,
-                description = model.description
+                description = model.description,
+                userId = modelUserId,
+                totalValue = model.totalValue
             };
 
             _context.Portfolios.Add(newPortfolio);

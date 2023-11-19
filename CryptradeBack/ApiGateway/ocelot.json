@@ -1,0 +1,152 @@
+﻿{
+  "Routes": [
+    // User Management
+    {
+      "UpstreamPathTemplate": "/api/User/register",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DonwStramScheme": "https",
+      "DownStreamHostAndPorts": [
+        {
+          "Host": "usermanagement",
+          "Port": 80
+        }
+      ],
+      "DownStreamPathTemplate": "/api/User/register"
+    },
+    {
+      "UpstreamPathTemplate": "/api/User/login",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DonwStramScheme": "https",
+      "DownStreamHostAndPorts": [
+        {
+          "Host": "usermanagement",
+          "Port": 80
+        }
+      ],
+      "DownStreamPathTemplate": "/api/User/login"
+    },
+    {
+      "UpstreamPathTemplate": "/api/User/all-users",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DonwStramScheme": "https",
+      "DownStreamHostAndPorts": [
+        {
+          "Host": "usermanagement",
+          "Port": 80
+        }
+      ],
+      "DownStreamPathTemplate": "/api/User/all-users"
+    },
+    {
+      "UpstreamPathTemplate": "/api/User",
+      "UpstreamHttpMethod": [ "Get, Put, Delete" ],
+
+      "DonwStramScheme": "https",
+      "DownStreamHostAndPorts": [
+        {
+          "Host": "usermanagement",
+          "Port": 80
+        }
+      ],
+      "DownStreamPathTemplate": "/api/User",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      } //,
+      //"RouteClaimsRequirement": {   - to use role based access in ocelot
+      //  "Role": "admin"
+      //}}
+    },
+    // PortfolioManagement
+    {
+      "UpstreamPathTemplate": "/api/Portfolio",
+      "UpstreamHttpMethod": [ "Get, Post, Put, Delete" ],
+
+      "DonwStramScheme": "https",
+      "DownStreamHostAndPorts": [
+        {
+          "Host": "portfoliomanagement",
+          "Port": 80
+        }
+      ],
+      "DownStreamPathTemplate": "/api/Portfolio",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    }
+    // CryptocurrencyData
+    {
+      "UpstreamPathTemplate": "/api/Crypto",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DonwStramScheme": "https",
+      "DownStreamHostAndPorts": [
+        {
+          "Host": "cryptocurrencydata",
+          "Port": 80
+        }
+      ],
+      "DownStreamPathTemplate": "/api/Crypto"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Crypto/get-sorted-by-price-data",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DonwStramScheme": "https",
+      "DownStreamHostAndPorts": [
+        {
+          "Host": "cryptocurrencydata",
+          "Port": 80
+        }
+      ],
+      "DownStreamPathTemplate": "/api/Crypto/get-sorted-by-price-data"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Crypto/get-sorted-by-volume-data",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DonwStramScheme": "https",
+      "DownStreamHostAndPorts": [
+        {
+          "Host": "cryptocurrencydata",
+          "Port": 80
+        }
+      ],
+      "DownStreamPathTemplate": "/api/Crypto/get-sorted-by-volume-data"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Crypto/search-crypto",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DonwStramScheme": "https",
+      "DownStreamHostAndPorts": [
+        {
+          "Host": "cryptocurrencydata",
+          "Port": 80
+        }
+      ],
+      "DownStreamPathTemplate": "/api/Crypto/search-crypto"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Crypto/{symbol}",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DonwStramScheme": "https",
+      "DownStreamHostAndPorts": [
+        {
+          "Host": "cryptocurrencydata",
+          "Port": 80
+        }
+      ],
+      "DownStreamPathTemplate": "/api/Crypto/{symbol}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl":  "https://localhost:800"
+  }
+}
+

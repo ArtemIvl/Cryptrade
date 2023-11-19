@@ -1,13 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using JwtAuthenticationManager;
+using Microsoft.EntityFrameworkCore;
 using PortfolioManagement.Data;
+using PortfolioManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<PortfolioService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCustomJwtAuthentication();
 
 // Configure the DbContext
 builder.Services.AddDbContext<PortfolioDbContext>(options =>
@@ -38,6 +42,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

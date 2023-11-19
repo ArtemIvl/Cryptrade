@@ -11,6 +11,8 @@ namespace UserManagement.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string email { get; set; }
+
+        public int id { get; set; }
     }
 }
 

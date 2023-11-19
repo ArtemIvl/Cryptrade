@@ -16,7 +16,7 @@ namespace CryptocurrencyData.Controllers
             _cryptoService = cryptoService;
         }
 
-        [HttpGet("get-crypto-data")]
+        [HttpGet]
         public async Task<IActionResult> GetCryptoData()
         {
             try
@@ -59,7 +59,7 @@ namespace CryptocurrencyData.Controllers
             }
         }
 
-        [HttpGet("get-crypto-by-name/{symbol}")]
+        [HttpGet("{symbol}")]
         public async Task<IActionResult> GetCryptoBySymbol(string symbol)
         {
             try
