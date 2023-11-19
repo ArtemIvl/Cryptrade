@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
 using UserManagement.Data;
 using JwtAuthenticationManager;
 using UserManagement.Services;
@@ -17,11 +16,16 @@ builder.Services.AddCustomJwtAuthentication();
 
 
 // Configuration for database connection
-builder.Configuration.AddJsonFile("appsettings.json");
+//builder.Configuration.AddJsonFile("appsettings.json");
 
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbPassword = Environment.GetEnvironmentVariable("DB_ROOT_PASSWORD");
+
+var connectionString = $"server={dbHost};port=3306;database={dbName};user=root;password={dbPassword}";
 // Configure the DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("MySqlConnection"), new  MySqlServerVersion(new Version(8, 1, 0)))); // Use the correct database provider (UseMySql in this case)
+    options.UseMySql(connectionString, new  MySqlServerVersion(new Version(8, 1, 0)))); // Use the correct database provider (UseMySql in this case)
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

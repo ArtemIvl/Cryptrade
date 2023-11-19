@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1706.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptradeBack", "CryptradeBack\CryptradeBack.csproj", "{D46817E5-728E-4DB8-9B26-F2F97E5298D7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement", "UserManagement\UserManagement.csproj", "{BC26585A-52C1-4D3A-ABF7-C427E78ED7CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptocurrencyData", "CryptocurrencyData\CryptocurrencyData.csproj", "{BFFA7F1E-85FF-45D1-9EE7-778C64958C4B}"
@@ -15,16 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtAuthenticationManager", "JwtAuthenticationManager\JwtAuthenticationManager.csproj", "{E541AA2D-B54E-4B9F-8EDB-52B74D7D146D}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B01E064C-30A4-42A4-B8FB-818EF646C24B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D46817E5-728E-4DB8-9B26-F2F97E5298D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D46817E5-728E-4DB8-9B26-F2F97E5298D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D46817E5-728E-4DB8-9B26-F2F97E5298D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D46817E5-728E-4DB8-9B26-F2F97E5298D7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC26585A-52C1-4D3A-ABF7-C427E78ED7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC26585A-52C1-4D3A-ABF7-C427E78ED7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC26585A-52C1-4D3A-ABF7-C427E78ED7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{E541AA2D-B54E-4B9F-8EDB-52B74D7D146D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E541AA2D-B54E-4B9F-8EDB-52B74D7D146D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E541AA2D-B54E-4B9F-8EDB-52B74D7D146D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B01E064C-30A4-42A4-B8FB-818EF646C24B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B01E064C-30A4-42A4-B8FB-818EF646C24B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B01E064C-30A4-42A4-B8FB-818EF646C24B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B01E064C-30A4-42A4-B8FB-818EF646C24B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

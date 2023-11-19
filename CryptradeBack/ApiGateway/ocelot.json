@@ -4,149 +4,135 @@
     {
       "UpstreamPathTemplate": "/api/User/register",
       "UpstreamHttpMethod": [ "Post" ],
-
-      "DonwStramScheme": "https",
-      "DownStreamHostAndPorts": [
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
         {
           "Host": "usermanagement",
           "Port": 80
         }
       ],
-      "DownStreamPathTemplate": "/api/User/register"
+      "DownstreamPathTemplate": "/api/User/register"
     },
     {
       "UpstreamPathTemplate": "/api/User/login",
       "UpstreamHttpMethod": [ "Post" ],
-
-      "DonwStramScheme": "https",
-      "DownStreamHostAndPorts": [
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
         {
           "Host": "usermanagement",
           "Port": 80
         }
       ],
-      "DownStreamPathTemplate": "/api/User/login"
+      "DownstreamPathTemplate": "/api/User/login"
     },
     {
       "UpstreamPathTemplate": "/api/User/all-users",
       "UpstreamHttpMethod": [ "Get" ],
-
-      "DonwStramScheme": "https",
-      "DownStreamHostAndPorts": [
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
         {
           "Host": "usermanagement",
           "Port": 80
         }
       ],
-      "DownStreamPathTemplate": "/api/User/all-users"
+      "DownstreamPathTemplate": "/api/User/all-users"
     },
     {
       "UpstreamPathTemplate": "/api/User",
-      "UpstreamHttpMethod": [ "Get, Put, Delete" ],
-
-      "DonwStramScheme": "https",
-      "DownStreamHostAndPorts": [
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
         {
           "Host": "usermanagement",
           "Port": 80
         }
       ],
-      "DownStreamPathTemplate": "/api/User",
+      "DownstreamPathTemplate": "/api/User",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
-      } //,
-      //"RouteClaimsRequirement": {   - to use role based access in ocelot
-      //  "Role": "admin"
-      //}}
+      }
     },
     // PortfolioManagement
     {
       "UpstreamPathTemplate": "/api/Portfolio",
-      "UpstreamHttpMethod": [ "Get, Post, Put, Delete" ],
-
-      "DonwStramScheme": "https",
-      "DownStreamHostAndPorts": [
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
         {
           "Host": "portfoliomanagement",
           "Port": 80
         }
       ],
-      "DownStreamPathTemplate": "/api/Portfolio",
+      "DownstreamPathTemplate": "/api/Portfolio",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       }
-    }
+    },
     // CryptocurrencyData
     {
       "UpstreamPathTemplate": "/api/Crypto",
       "UpstreamHttpMethod": [ "Get" ],
-
-      "DonwStramScheme": "https",
-      "DownStreamHostAndPorts": [
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
         {
           "Host": "cryptocurrencydata",
           "Port": 80
         }
       ],
-      "DownStreamPathTemplate": "/api/Crypto"
+      "DownstreamPathTemplate": "/api/Crypto"
     },
     {
       "UpstreamPathTemplate": "/api/Crypto/get-sorted-by-price-data",
       "UpstreamHttpMethod": [ "Get" ],
-
-      "DonwStramScheme": "https",
-      "DownStreamHostAndPorts": [
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
         {
           "Host": "cryptocurrencydata",
           "Port": 80
         }
       ],
-      "DownStreamPathTemplate": "/api/Crypto/get-sorted-by-price-data"
+      "DownstreamPathTemplate": "/api/Crypto/get-sorted-by-price-data"
     },
     {
       "UpstreamPathTemplate": "/api/Crypto/get-sorted-by-volume-data",
       "UpstreamHttpMethod": [ "Get" ],
-
-      "DonwStramScheme": "https",
-      "DownStreamHostAndPorts": [
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
         {
           "Host": "cryptocurrencydata",
           "Port": 80
         }
       ],
-      "DownStreamPathTemplate": "/api/Crypto/get-sorted-by-volume-data"
+      "DownstreamPathTemplate": "/api/Crypto/get-sorted-by-volume-data"
     },
     {
       "UpstreamPathTemplate": "/api/Crypto/search-crypto",
       "UpstreamHttpMethod": [ "Get" ],
-
-      "DonwStramScheme": "https",
-      "DownStreamHostAndPorts": [
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
         {
           "Host": "cryptocurrencydata",
           "Port": 80
         }
       ],
-      "DownStreamPathTemplate": "/api/Crypto/search-crypto"
+      "DownstreamPathTemplate": "/api/Crypto/search-crypto"
     },
     {
       "UpstreamPathTemplate": "/api/Crypto/{symbol}",
       "UpstreamHttpMethod": [ "Get" ],
-
-      "DonwStramScheme": "https",
-      "DownStreamHostAndPorts": [
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
         {
           "Host": "cryptocurrencydata",
           "Port": 80
         }
       ],
-      "DownStreamPathTemplate": "/api/Crypto/{symbol}"
+      "DownstreamPathTemplate": "/api/Crypto/{symbol}"
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl":  "https://localhost:800"
+    "BaseUrl": "https://localhost:800"
   }
 }
-
