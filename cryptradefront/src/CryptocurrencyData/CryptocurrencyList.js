@@ -12,7 +12,7 @@ function CryptocurrencyList() {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get('https://localhost:7145/api/Crypto/get-crypto-data')
+    axios.get('https://localhost:7145/api/Crypto')
       .then(response => {
         setCryptoData(response.data);
         setIsLoading(false);

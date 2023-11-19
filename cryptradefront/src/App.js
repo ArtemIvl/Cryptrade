@@ -35,7 +35,7 @@ function App() {
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
+  }, [token]);
   
   return (
     <div className="App">
@@ -47,7 +47,7 @@ function App() {
         <Route path="/cryptocurrency" element={<CryptocurrencyList />} />
         <Route path="/cryptocurrency/:symbol" element={<SingleCrypto />} />
         <Route path="/profile" element={<ProfilePage isLoggedIn={isLoggedIn}/>} />
-        <Route path="/portfolio" element={<Portfolio/>} />
+        <Route path="/portfolio" element={<Portfolio isLoggedIn={isLoggedIn}/>} />
       </Routes>
     </Router>
     </div>

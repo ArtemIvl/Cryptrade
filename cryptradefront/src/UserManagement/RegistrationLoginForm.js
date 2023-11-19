@@ -47,7 +47,7 @@ const RegistrationLoginForm = ({handleLoginClick, setIsLoggedIn}) => {
 
       // Handle successful registration, e.g., show a success message
       console.log('Login successful', response.data);
-      const token = response.data.token; // Ensure this matches the actual key the token is sent with
+      const token = response.data.jwtToken; // Ensure this matches the actual key the token is sent with
       localStorage.setItem('token', token);
       setIsLoggedIn(true);
       handleLoginClick();

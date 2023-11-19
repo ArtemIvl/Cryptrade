@@ -7,7 +7,7 @@ function SingleCrypto() {
   const [crypto, setCrypto] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://localhost:7145/api/Crypto/get-crypto-by-name/${symbol}`)
+    axios.get(`https://localhost:7145/api/Crypto/${symbol}`)
       .then(response => {
         setCrypto(response.data);
       })

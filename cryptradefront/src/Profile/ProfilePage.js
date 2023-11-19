@@ -14,7 +14,7 @@ function ProfilePage({isLoggedIn}) {
         if (!token || !isLoggedIn) {
           navigate('/cryptocurrency');
         } else {
-          axios.get('https://localhost:7036/api/user/profile', {
+          axios.get('https://localhost:7036/api/user', {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -37,7 +37,7 @@ function ProfilePage({isLoggedIn}) {
             return;
         }
 
-        axios.put('https://localhost:7036/api/user/update', { name: newName, email: userData.email }, {
+        axios.put('https://localhost:7036/api/user', { name: newName, email: userData.email }, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -56,7 +56,7 @@ function ProfilePage({isLoggedIn}) {
             return;
         }
 
-        axios.put('https://localhost:7036/api/user/update', { name: userData.name, email: newEmail }, {
+        axios.put('https://localhost:7036/api/user', { name: userData.name, email: newEmail }, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -72,7 +72,7 @@ function ProfilePage({isLoggedIn}) {
     const handleDeleteAccount = () => {
         const token = localStorage.getItem('token');
         
-        axios.delete('https://localhost:7036/api/user/delete', {
+        axios.delete('https://localhost:7036/api/user', {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
