@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import './PortfolioPage.css'
+import EditPortfolio from './EditPortfolio';
 
 function PortfolioPage(isLoggedIn) {
 
@@ -115,7 +116,7 @@ function PortfolioPage(isLoggedIn) {
         <span className='portfolio-actions'>
         <button className='portfolio-add-transaction'>Add transaction</button>
         <button className='portfolio-delete' onClick={handleDeletePortfolio}>Delete</button>
-        <button className='portfolio-edit'>Edit</button>
+        <button onClick={() => <EditPortfolio />} className='portfolio-edit'>Edit</button>
         </span>
         <span className='portfolio-history'>History</span>
         <span className='portfolio-best-performer'>BTC</span>
