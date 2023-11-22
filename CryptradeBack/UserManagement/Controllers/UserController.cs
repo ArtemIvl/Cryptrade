@@ -38,18 +38,29 @@ namespace UserManagement.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<AuthenticationResponse?>> LoginAsync([FromBody] AuthenticationRequest request)
         {
-            await _jwtTokenHandler.GetAllUsers();
-            var response = _jwtTokenHandler.GenerateJwtToken(request);
+            var userData = await _userService.GetAllUsersAsync();
+
+            List<JwtAuthenticationManager.Entity.User> userDataConverted = userData.Select(user =>
+                new JwtAuthenticationManager.Entity.User
+                    {
+                        id = user.id,
+                        name = user.name,
+                        email = user.email,
+                        password = user.password,
+                        role = user.role
+                    }).ToList();
+
+            var response = _jwtTokenHandler.GenerateJwtToken(request, userDataConverted);
             if (response == null) return Unauthorized();
             return Ok(response);
         }
 
         [HttpGet("all-users")]
-        public IActionResult GetAllUsers()
+        public async Task<IActionResult> GetAllUsers()
         {
             try
             {
-                var userData = _userService.GetAllUsers();
+                var userData = await _userService.GetAllUsersAsync();
                 return Ok(userData);
             }
             catch (Exception ex)

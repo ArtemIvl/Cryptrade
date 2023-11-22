@@ -1,4 +1,5 @@
-﻿using UserManagement.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using UserManagement.Data;
 using UserManagement.Entity;
 using UserManagement.Models;
 
@@ -34,9 +35,9 @@ namespace UserManagement.Services
 			_context.SaveChanges();
         }
 
-        public List<User> GetAllUsers()
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            var listOfUsers = _context.Users.ToList();
+            var listOfUsers = await _context.Users.ToListAsync();
             return listOfUsers;
         }
 

@@ -14,7 +14,6 @@ builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCustomJwtAuthentication();
 
-
 // Configuration for database connection
 //builder.Configuration.AddJsonFile("appsettings.json");
 
@@ -33,9 +32,9 @@ builder.Services.AddSwaggerGen();
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost3000",
+    options.AddPolicy("AllowLocalhost8002",
         builder => builder
-            .WithOrigins("http://localhost:3000")
+            .WithOrigins("http://localhost:8002")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -43,7 +42,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Use CORS
-app.UseCors("AllowLocalhost3000");
+app.UseCors("AllowLocalhost8002");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

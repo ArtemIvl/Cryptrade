@@ -2,6 +2,7 @@ version: '3.4'
 
 networks:
   backend:
+  frontend:
 
 services:
   userdb:
@@ -12,7 +13,7 @@ services:
     networks:
       - backend
     ports:
-      - 8002:3306
+      - 18001:3306
 
   portfoliodb:
     container_name: portfoliodb
@@ -22,7 +23,7 @@ services:
     networks:
       - backend
     ports:
-      - 8003:3306
+      - 18002:3306
 
   cryptodatacache:
     container_name: cryptodatacache
@@ -32,63 +33,75 @@ services:
     networks:
       - backend
     ports:
-      - 8004:3306
+      - 18003:3306
 
   usermanagement:
     container_name: user-management
     image: ${DOCKER_REGISTRY-}usermanagement
     build:
-      context: .
+      context: ./CryptradeBack
       dockerfile: UserManagement/Dockerfile
     networks:
       - backend
+      - frontend
     environment:
       - DB_HOST=userdb
       - DB_NAME=userdb
       - DB_ROOT_PASSWORD=096-9503012
+    ports:
+      - 8003:443
 
   portfoliomanagement:
     container_name: portfolio-management
     image: ${DOCKER_REGISTRY-}portfoliomanagement
     build:
-      context: .
+      context: ./CryptradeBack
       dockerfile: PortfolioManagement/Dockerfile
     networks:
       - backend
+      - frontend
     environment:
       - DB_HOST=portfoliodb
       - DB_NAME=portfoliodb
       - DB_ROOT_PASSWORD=096-9503012
+    ports:
+      - 8004:443
 
   cryptocurrencydata:
     container_name: cryptocurrency-data
     image: ${DOCKER_REGISTRY-}cryptocurrencydata
     build:
-      context: .
+      context: ./CryptradeBack
       dockerfile: CryptocurrencyData/Dockerfile
     networks:
       - backend
+      - frontend
     environment:
       - DB_HOST=cryptodatacache
       - DB_NAME=cryptodatacache
       - DB_ROOT_PASSWORD=096-9503012
-
-  apigateway:
-    container_name: api-gateway
-    image: ${DOCKER_REGISTRY-}apigateway
-    build:
-      context: .
-      dockerfile: ApiGateway/Dockerfile
-    networks:
-      - backend
     ports:
-      - 8001:80
+      - 8005:443
 
-  jwtauthenticationmanager:
-    container_name: auth-manager
-    image: ${DOCKER_REGISTRY-}jwtauthenticationmanager
+  # apigateway:
+  #   container_name: api-gateway
+  #   image: ${DOCKER_REGISTRY-}apigateway
+  #   build:
+  #     context: ./CryptradeBack
+  #     dockerfile: ApiGateway/Dockerfile
+  #   networks:
+  #     - backend
+  #     - frontend
+  #   ports:
+  #     - 8001:80
+
+  cryptradefront:
+    container_name: front-end
+    image: ${DOCKER_REGISTRY-}cryptradefront
     build:
-      context: .
-      dockerfile: JwtAuthenticationManager/Dockerfile
+      context: ./cryptradefront
+      dockerfile: Dockerfile
     networks:
-      - backend
+      - frontend
+    ports:
+      - 8002:3000

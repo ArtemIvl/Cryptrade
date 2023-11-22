@@ -14,48 +14,23 @@ namespace JwtAuthenticationManager
 
 		private const int JWT_TOKEN_VALIDITY_MINS = 20;
 
-        private readonly HttpClient _httpClient;
-
-		private List<User> users;
-
-        public JwtTokenHandler(HttpClient httpClient)
+        public JwtTokenHandler()
         {
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+			
         }
 
-        public async Task GetAllUsers()
-		{
-            try
-            {
-                var apiUrl = "https://localhost:7036/api/User/all-users";
-
-                var response = await _httpClient.GetAsync(apiUrl);
-
-                response.EnsureSuccessStatusCode();
-
-                var listOfUsers = await response.Content.ReadAsStringAsync();
-				users = JsonSerializer.Deserialize<List<User>>(listOfUsers);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-        }
-
-
-        public AuthenticationResponse? GenerateJwtToken(AuthenticationRequest authenticationRequest)
+        public AuthenticationResponse? GenerateJwtToken(AuthenticationRequest authenticationRequest, List<User> users)
 		{
 			if (string.IsNullOrWhiteSpace(authenticationRequest.email) || string.IsNullOrWhiteSpace(authenticationRequest.password))
 				return null;
 
 			// Validate
-			var userAccount = users.SingleOrDefault(u => u.email == authenticationRequest.email);
+			var userAccount = users.FirstOrDefault(u => u.email == authenticationRequest.email);
 
 			if (userAccount == null || !BCrypt.Net.BCrypt.Verify(authenticationRequest.password, userAccount.password))
 			{
 				return null;
 			}
-
 
 			var tokenExpiryTimeStamp = DateTime.Now.AddMinutes(JWT_TOKEN_VALIDITY_MINS);
 			var tokenKey = Encoding.ASCII.GetBytes(JWT_SECURITY_KEY);

@@ -12,7 +12,7 @@ function CryptocurrencyList() {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get('https://localhost:7145/api/Crypto')
+    axios.get('https://localhost:8005/api/Crypto')
       .then(response => {
         setCryptoData(response.data);
         setIsLoading(false);
@@ -25,7 +25,7 @@ function CryptocurrencyList() {
 
   const handleSortByPriceChange = () => {
     setIsLoading(true);
-    axios.get('https://localhost:7145/api/Crypto/get-sorted-by-price-data')
+    axios.get('https://localhost:8005/api/Crypto/get-sorted-by-price-data')
       .then(response => {
         setCryptoData(response.data);
         setIsLoading(false);
@@ -38,7 +38,7 @@ function CryptocurrencyList() {
 
   const handleSortByVolume24h = () => {
     setIsLoading(true);
-    axios.get('https://localhost:7145/api/Crypto/get-sorted-by-volume-data')
+    axios.get('https://localhost:8005/api/Crypto/get-sorted-by-volume-data')
       .then(response => {
         setCryptoData(response.data);
         setIsLoading(false);

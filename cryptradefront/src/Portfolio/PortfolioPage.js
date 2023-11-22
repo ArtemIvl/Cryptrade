@@ -17,7 +17,7 @@ function PortfolioPage(isLoggedIn) {
   useEffect(() => {
     if (isLoggedIn && token) {
       try {
-      axios.get(`https://localhost:7230/api/portfolio`, {
+      axios.get(`https://localhost:8004/api/portfolio`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -42,7 +42,7 @@ function PortfolioPage(isLoggedIn) {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`https://localhost:7230/api/portfolio`, 
+      const response = await axios.post(`https://localhost:8004/api/portfolio`, 
       {
         name: portfolioName,
         description: portfolioDescription,
@@ -65,7 +65,7 @@ function PortfolioPage(isLoggedIn) {
   const handleDeletePortfolio = async (e) => {
     e.preventDefault();
     try {
-        await axios.delete(`https://localhost:7230/api/portfolio?portfolioId=${existingPortfolio.id}`,
+        await axios.delete(`https://localhost:8004/api/portfolio?portfolioId=${existingPortfolio.id}`,
         {
           headers: {
           Authorization: `Bearer ${token}`,
@@ -81,7 +81,7 @@ function PortfolioPage(isLoggedIn) {
   const handleEditPortfolio = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://localhost:7230/api/portfolio?portfolioId=${existingPortfolio.id}`,
+      await axios.put(`https://localhost:8004/api/portfolio?portfolioId=${existingPortfolio.id}`,
       {
         name: newName,
         description: newDescription,

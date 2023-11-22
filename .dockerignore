@@ -21,5 +21,6 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
+cryptradefront/node_modules
 LICENSE
 README.md
