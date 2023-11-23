@@ -19,13 +19,18 @@ namespace JwtAuthenticationManager
 			
         }
 
-        public AuthenticationResponse? GenerateJwtToken(AuthenticationRequest authenticationRequest, List<User> users)
+        public AuthenticationResponse? GenerateJwtToken(AuthenticationRequest authenticationRequest, User user)
 		{
 			if (string.IsNullOrWhiteSpace(authenticationRequest.email) || string.IsNullOrWhiteSpace(authenticationRequest.password))
 				return null;
 
 			// Validate
-			var userAccount = users.FirstOrDefault(u => u.email == authenticationRequest.email);
+			User? userAccount = null;
+
+			if (user.email == authenticationRequest.email)
+			{
+				userAccount = user;
+			}
 
 			if (userAccount == null || !BCrypt.Net.BCrypt.Verify(authenticationRequest.password, userAccount.password))
 			{

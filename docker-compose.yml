@@ -44,6 +44,8 @@ services:
     networks:
       - backend
       - frontend
+    depends_on:
+      - userdb
     environment:
       - DB_HOST=userdb
       - DB_NAME=userdb
@@ -60,6 +62,8 @@ services:
     networks:
       - backend
       - frontend
+    depends_on:
+      - portfoliodb
     environment:
       - DB_HOST=portfoliodb
       - DB_NAME=portfoliodb
@@ -73,9 +77,11 @@ services:
     build:
       context: ./CryptradeBack
       dockerfile: CryptocurrencyData/Dockerfile
-    networks:
+    networks: 
       - backend
       - frontend
+    depends_on:
+      - cryptodatacache
     environment:
       - DB_HOST=cryptodatacache
       - DB_NAME=cryptodatacache
@@ -89,11 +95,15 @@ services:
   #   build:
   #     context: ./CryptradeBack
   #     dockerfile: ApiGateway/Dockerfile
+  #   depends_on:
+  #     - cryptocurrencydata
+  #     - portfoliomanagement
+  #     - usermanagement
   #   networks:
   #     - backend
   #     - frontend
   #   ports:
-  #     - 8001:80
+  #     - 8001:443
 
   cryptradefront:
     container_name: front-end
@@ -104,4 +114,4 @@ services:
     networks:
       - frontend
     ports:
-      - 8002:3000
+      - 8002:443

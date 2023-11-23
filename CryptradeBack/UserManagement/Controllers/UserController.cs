@@ -40,17 +40,14 @@ namespace UserManagement.Controllers
         {
             var userData = await _userService.GetAllUsersAsync();
 
-            List<JwtAuthenticationManager.Entity.User> userDataConverted = userData.Select(user =>
-                new JwtAuthenticationManager.Entity.User
-                    {
-                        id = user.id,
-                        name = user.name,
-                        email = user.email,
-                        password = user.password,
-                        role = user.role
-                    }).ToList();
+            var loginuser = userData.Where(u => u.email == request.email);
 
-            var response = _jwtTokenHandler.GenerateJwtToken(request, userDataConverted);
+            if (loginuser == null)
+            {
+                return BadRequest();
+            }
+
+            var response = _jwtTokenHandler.GenerateJwtToken(request, (JwtAuthenticationManager.Entity.User)loginuser);
             if (response == null) return Unauthorized();
             return Ok(response);
         }
