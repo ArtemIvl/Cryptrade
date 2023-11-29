@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
-    <UserSecretsId>d72ede55-7509-42c1-a820-4f1e6df5ad1c</UserSecretsId>
+    <UserSecretsId>d54dd340-33f0-4d29-b5db-bd828b5d8712</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />

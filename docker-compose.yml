@@ -83,17 +83,17 @@ services:
     ports:
       - 8005:443
 
-  # apigateway:
-  #   container_name: api-gateway
-  #   image: ${DOCKER_REGISTRY-}apigateway
-  #   build:
-  #     context: ./CryptradeBack
-  #     dockerfile: ApiGateway/Dockerfile
-  #   networks:
-  #     - backend
-  #     - frontend
-  #   ports:
-  #     - 8001:80
+  apigateway:
+    container_name: api-gateway
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: ./CryptradeBack
+      dockerfile: ApiGateway/Dockerfile
+    networks:
+      - backend
+      - frontend
+    ports:
+      - 8001:80
 
   cryptradefront:
     container_name: front-end
