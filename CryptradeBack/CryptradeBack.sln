@@ -3,11 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1706.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptradeBack", "CryptradeBack\CryptradeBack.csproj", "{D46817E5-728E-4DB8-9B26-F2F97E5298D7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement", "UserManagement\UserManagement.csproj", "{BC26585A-52C1-4D3A-ABF7-C427E78ED7CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptocurrencyData", "CryptocurrencyData\CryptocurrencyData.csproj", "{BFFA7F1E-85FF-45D1-9EE7-778C64958C4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioManagement", "PortfolioManagement\PortfolioManagement.csproj", "{1523CA0E-09A0-42EA-9DA7-0AA4A66FD1E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{0B0C5B18-83A7-4D0D-8949-D26E74A4F8FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtAuthenticationManager", "JwtAuthenticationManager\JwtAuthenticationManager.csproj", "{E541AA2D-B54E-4B9F-8EDB-52B74D7D146D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionManagement", "TransactionManagement\TransactionManagement.csproj", "{90D9638C-9EAB-4D49-BA46-B46DBF725375}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{352C8C31-A0B8-4E45-9B6F-621E14B48F9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D46817E5-728E-4DB8-9B26-F2F97E5298D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D46817E5-728E-4DB8-9B26-F2F97E5298D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D46817E5-728E-4DB8-9B26-F2F97E5298D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D46817E5-728E-4DB8-9B26-F2F97E5298D7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC26585A-52C1-4D3A-ABF7-C427E78ED7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC26585A-52C1-4D3A-ABF7-C427E78ED7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC26585A-52C1-4D3A-ABF7-C427E78ED7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +31,26 @@ Global
 		{BFFA7F1E-85FF-45D1-9EE7-778C64958C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFFA7F1E-85FF-45D1-9EE7-778C64958C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFFA7F1E-85FF-45D1-9EE7-778C64958C4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1523CA0E-09A0-42EA-9DA7-0AA4A66FD1E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1523CA0E-09A0-42EA-9DA7-0AA4A66FD1E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1523CA0E-09A0-42EA-9DA7-0AA4A66FD1E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1523CA0E-09A0-42EA-9DA7-0AA4A66FD1E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B0C5B18-83A7-4D0D-8949-D26E74A4F8FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B0C5B18-83A7-4D0D-8949-D26E74A4F8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B0C5B18-83A7-4D0D-8949-D26E74A4F8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B0C5B18-83A7-4D0D-8949-D26E74A4F8FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E541AA2D-B54E-4B9F-8EDB-52B74D7D146D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E541AA2D-B54E-4B9F-8EDB-52B74D7D146D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E541AA2D-B54E-4B9F-8EDB-52B74D7D146D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E541AA2D-B54E-4B9F-8EDB-52B74D7D146D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90D9638C-9EAB-4D49-BA46-B46DBF725375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90D9638C-9EAB-4D49-BA46-B46DBF725375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90D9638C-9EAB-4D49-BA46-B46DBF725375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90D9638C-9EAB-4D49-BA46-B46DBF725375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{352C8C31-A0B8-4E45-9B6F-621E14B48F9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{352C8C31-A0B8-4E45-9B6F-621E14B48F9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{352C8C31-A0B8-4E45-9B6F-621E14B48F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{352C8C31-A0B8-4E45-9B6F-621E14B48F9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,7 +5,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using CryptocurrencyData.Data;
 using CryptocurrencyData.Entity;
-using CryptocurrencyData.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CryptocurrencyData.Services
@@ -25,9 +24,30 @@ namespace CryptocurrencyData.Services
             _context = context;
         }
 
+        public async Task<List<CryptoData>> GetCryptoDataAsync()
+        {
+            try
+            {
+                var cachedData = await _context.CryptoData.ToListAsync();
+                if (cachedData != null && cachedData.Any(d => !IsDataStale(d.lastUpdated)))
+                {
+                    return cachedData.ToList();
+                } else
+                {
+                    var freshDataList = await GetCryptoDataFromApi();
+                    await CacheCryptoData(freshDataList);
+                    return freshDataList;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
         // take data from cmc api
-        public async Task<List<Cryptocurrency>> GetCryptoDataAsync()
+        public async Task<List<CryptoData>> GetCryptoDataFromApi()
         {
             try
             {
@@ -41,7 +61,20 @@ namespace CryptocurrencyData.Services
                     PropertyNameCaseInsensitive = true
                 });
 
-                return cryptoResponse?.Data;
+                var freshDataList = cryptoResponse?.Data.Select(freshData => new CryptoData
+                {
+                    name = freshData.name,
+                    symbol = freshData.symbol,
+                    price = freshData.quote.usd.price,
+                    marketCap = freshData.quote.usd.market_cap,
+                    volume24h = freshData.quote.usd.volume_24h,
+                    percentChange24h = freshData.quote.usd.percent_change_24h,
+                    circulatingSupply = freshData.circulating_supply,
+                    cmcRank = freshData.cmc_rank,
+                    lastUpdated = DateTime.Now
+                }).ToList();
+
+                return freshDataList;
             }
             catch (Exception ex)
             {
@@ -50,39 +83,30 @@ namespace CryptocurrencyData.Services
             }
         }
 
-        // cache data from external api to local db
-        public async Task CacheCryptoData(List<Cryptocurrency> freshDataList)
+        // cache data to local db
+        public async Task CacheCryptoData(List<CryptoData> freshDataList)
         {
             try
             {
                 foreach (var freshData in freshDataList)
                 {
                     var existingData = await _context.CryptoData.FirstOrDefaultAsync(d => d.symbol == freshData.symbol);
-                    if (existingData != null && !IsDataStale(existingData.lastUpdated))
-                    {
-                        continue; // data is already up to date
-                    }
 
                     if (existingData == null)
                     {
-                        _context.CryptoData.Add(new CryptoData
-                        {
-                            name = freshData.name,
-                            symbol = freshData.symbol,
-                            price = freshData.quote.usd.price,
-                            marketCap = freshData.quote.usd.market_cap,
-                            volume24h = freshData.quote.usd.volume_24h,
-                            percentChange24h = freshData.quote.usd.percent_change_24h,
-                            lastUpdated = DateTime.Now
-                        });
-                    } else
+                        _context.CryptoData.Add(freshData);
+                    }
+                    else
                     {
+                        // update existing data
                         existingData.name = freshData.name;
                         existingData.symbol = freshData.symbol;
-                        existingData.price = freshData.quote.usd.price;
-                        existingData.marketCap = freshData.quote.usd.market_cap;
-                        existingData.volume24h = freshData.quote.usd.volume_24h;
-                        existingData.percentChange24h = freshData.quote.usd.percent_change_24h;
+                        existingData.price = freshData.price;
+                        existingData.marketCap = freshData.marketCap;
+                        existingData.volume24h = freshData.volume24h;
+                        existingData.percentChange24h = freshData.percentChange24h;
+                        existingData.circulatingSupply = freshData.circulatingSupply;
+                        existingData.cmcRank = freshData.cmcRank;
                         existingData.lastUpdated = DateTime.Now;
                     }
                 }
@@ -99,6 +123,44 @@ namespace CryptocurrencyData.Services
         {
             // Define logic to check if the data is stale
             return (DateTime.Now - lastUpdated) > TimeSpan.FromMinutes(60);
+        }
+
+        public async Task<List<CryptoData>> SortByPriceChangeDescending()
+        {
+            var sortedData = _context.CryptoData.OrderByDescending(crypto => crypto.percentChange24h).ToList();
+            return sortedData;
+        }
+
+        public async Task <List<CryptoData>> SortByVolume24hDescending()
+        {
+            var sortedData = _context.CryptoData.OrderByDescending(crypto => crypto.volume24h).ToList();
+            return sortedData;
+        }
+
+        public async Task<List<CryptoData>> SearchCrypto(string searchTerm)
+        {
+            try
+            {
+                var searchResult = await _context.CryptoData.Where
+                    (crypto => crypto.name.Contains(searchTerm) || crypto.symbol.Contains(searchTerm)).ToListAsync();
+                return searchResult;
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<CryptoData> GetCryptoBySymbol(string symbol)
+        {
+            try
+            {
+                var cryptoResult = await _context.CryptoData.FirstOrDefaultAsync(c => c.symbol == symbol);
+                return cryptoResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

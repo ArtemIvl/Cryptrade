@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using JwtAuthenticationManager;
+using JwtAuthenticationManager.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UserManagement.Data;
-using UserManagement.Entity;
 using UserManagement.Models;
 using UserManagement.Services;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace UserManagement.Controllers
 {
@@ -17,12 +13,14 @@ namespace UserManagement.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly JwtTokenHandler _jwtTokenHandler;
 
-        public UserController(UserService userService)
+        public UserController(UserService userService, JwtTokenHandler jwtTokenHandler)
         {
             _userService = userService;
+            _jwtTokenHandler = jwtTokenHandler;
         }
-        // POST api/values
+
         [HttpPost("register")]
         public IActionResult Register([FromBody] UserRegisterModel model)
         {
@@ -38,52 +36,112 @@ namespace UserManagement.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] UserLoginModel model)
+        public async Task<ActionResult<AuthenticationResponse?>> LoginAsync([FromBody] AuthenticationRequest request)
+        {
+            var userData = await _userService.GetAllUsersAsync();
+
+            List<JwtAuthenticationManager.Entity.User> userDataConverted = userData.Select(user =>
+                new JwtAuthenticationManager.Entity.User
+                    {
+                        id = user.id,
+                        name = user.name,
+                        email = user.email,
+                        password = user.password,
+                        role = user.role
+                    }).ToList();
+
+            var response = _jwtTokenHandler.GenerateJwtToken(request, userDataConverted);
+            if (response == null) return Unauthorized();
+            return Ok(response);
+        }
+
+        [HttpGet("all-users")]
+        public async Task<IActionResult> GetAllUsers()
         {
             try
             {
-                var user = _userService.AuthenticateUser(model);
-                if (user == null)
-                {
-                    return Unauthorized("Invalid username or password.");
-                }
-
-                // Implement token generation or session management for authentication.
-                // Return a token or session information to the client.
-
-                return Ok("Login successful");
+                var userData = await _userService.GetAllUsersAsync();
+                return Ok(userData);
             }
             catch (Exception ex)
             {
-                return BadRequest($"Login failed: {ex.Message}");
+                return BadRequest($"Getting data failed: {ex.Message}");
             }
         }
 
-
-        // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        [Authorize]
+        public IActionResult GetUserData()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                // Extract user's identity from the token
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                // Fetch user data based on the user ID
+                var userData = _userService.GetUserDataById(userId);
+
+                if (userData != null)
+                {
+                    return Ok(userData);
+                }
+                else
+                {
+                    return NotFound("User data not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Getting data failed: {ex.Message}");
+            }
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpPut]
+        [Authorize]
+        public IActionResult UpdateUserData([FromBody] UserDataModel model)
         {
-            return "value";
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId != null)
+            {
+                try
+                {
+                    _userService.UpdateUserData(userId, model.name, model.email);
+                    return Ok("User data updated successfully");
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest($"Failed to update user data: {ex.Message}");
+                }
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpDelete]
+        [Authorize]
+        public IActionResult DeleteUser()
         {
-        }
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            if (userId != null)
+            {
+                try
+                {
+                    _userService.DeleteUser(userId);
+                    return Ok("User account deleted successfully");
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest($"Failed to delete user account: {ex.Message}");
+                }
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
     }
 }

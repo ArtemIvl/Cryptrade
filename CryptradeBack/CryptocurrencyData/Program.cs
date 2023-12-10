@@ -1,5 +1,6 @@
 ﻿using CryptocurrencyData.Data;
 using CryptocurrencyData.Services;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,11 +11,21 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 // Configuration for database connection
-builder.Configuration.AddJsonFile("appsettings.json");
+//builder.Configuration.AddJsonFile("appsettings.json");
+
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbPassword = Environment.GetEnvironmentVariable("DB_ROOT_PASSWORD");
+
+var connectionString = $"server={dbHost};port=3306;database={dbName};user=root;password={dbPassword}";
 
 // Configure the DbContext
 builder.Services.AddDbContext<CryptoDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("MySqlConnection"), new MySqlServerVersion(new Version(8, 1, 0)))); // Use the correct database provider (UseMySql in this case)
+    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 1, 0)))); // Use the correct database provider (UseMySql in this case)
+
+builder.Services.AddAuthentication(
+        CertificateAuthenticationDefaults.AuthenticationScheme)
+    .AddCertificate();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -30,9 +41,9 @@ builder.Services.AddHttpClient<CryptoService>();
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost3000",
+    options.AddPolicy("AllowLocalhost8002",
         builder => builder
-            .WithOrigins("http://localhost:3000")
+            .WithOrigins("http://localhost:8002")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -40,7 +51,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Use CORS
-app.UseCors("AllowLocalhost3000");
+app.UseCors("AllowLocalhost8002");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -50,6 +61,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using UserManagement.Data;
 using UserManagement.Entity;
 using UserManagement.Models;
@@ -8,8 +8,8 @@ namespace UserManagement.Services
 	public class UserService
 	{
 		private readonly ApplicationDbContext _context;
-
-		public UserService(ApplicationDbContext context)
+       
+        public UserService(ApplicationDbContext context)
 		{
 			_context = context;
 		}
@@ -27,7 +27,7 @@ namespace UserManagement.Services
 			{
 				name = model.name,
 				email = model.email,
-				password = model.password,
+				password = hashedPassword,
 				role = "User"
 			};
 
@@ -35,17 +35,60 @@ namespace UserManagement.Services
 			_context.SaveChanges();
         }
 
-		public User? AuthenticateUser(UserLoginModel model)
-		{
-			var user = _context.Users.SingleOrDefault(u => u.email == model.email);
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            var listOfUsers = await _context.Users.ToListAsync();
+            return listOfUsers;
+        }
 
-			if (user == null || !BCrypt.Net.BCrypt.Verify(model.password, user.password))
-			{
-				return null;
-			}
+        public UserDataModel GetUserDataById(string userId)
+        {
+            // Fetch user data from the database by user ID
+            var user = _context.Users.FirstOrDefault(u => u.id == Convert.ToInt32(userId));
 
-			return user;
-		}
+            if (user != null)
+            {
+                var userData = new UserDataModel
+                {
+                    name = user.name,
+                    email = user.email,
+                    id = user.id
+                };
+
+                return userData;
+            }
+            return null; // Return null if user data not found
+        }
+
+        public void UpdateUserData(string userId, string newName, string newEmail)
+        {
+            var user = _context.Users.Find(Convert.ToInt32(userId));
+
+            if (user != null)
+            {
+                if (_context.Users.Any(u => u.email == newEmail && u.id != Convert.ToInt32(userId)))
+                {
+                    throw new Exception("Email is already in use.");
+                }
+                else
+                {
+                    user.name = newName;
+                    user.email = newEmail;
+                    _context.SaveChanges();
+                }
+            }
+        }
+
+        public void DeleteUser(string userId)
+        {
+            var user = _context.Users.Find(Convert.ToInt32(userId));
+
+            if (user != null)
+            {
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+            }
+        }
     }
 }
 
