@@ -1,9 +1,10 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import axios from 'axios';
 // import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 // import { Visibility } from '@mui/icons-material';
 import './RegistrationLoginForm.css';
+
+/* eslint-disable jsx-a11y/anchor-is-valid */
 
 const RegistrationLoginForm = ({handleLoginClick, setIsLoggedIn}) => {
     const [name, setName] = useState('');
