@@ -1,1 +1,0 @@
-l 2csX*hr9CryptradeBack/CryptocurrencyData/Entity/Cryptocurrency.cs

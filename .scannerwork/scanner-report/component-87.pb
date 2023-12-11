@@ -1,1 +1,0 @@
-W 2csX.hrOCryptradeBack/PortfolioManagement/Migrations/PortfolioDbContextModelSnapshot.cs

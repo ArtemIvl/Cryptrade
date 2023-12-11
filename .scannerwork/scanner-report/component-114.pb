@@ -1,1 +1,0 @@
-r 2csXThr@CryptradeBack/CryptocurrencyData/Controllers/CryptoController.cs

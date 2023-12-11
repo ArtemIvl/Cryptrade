@@ -1,1 +1,0 @@
-d 2csXxhr>CryptradeBack/PortfolioManagement/Services/RabbitMQConsumer.cs

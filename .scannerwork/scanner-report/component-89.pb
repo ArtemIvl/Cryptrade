@@ -1,1 +1,0 @@
-Y 2csX1hrUCryptradeBack/PortfolioManagement/Migrations/20231109235525_InitialCreate.Designer.cs

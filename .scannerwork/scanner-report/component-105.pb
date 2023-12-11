@@ -1,1 +1,0 @@
-i 2csX>hrTCryptradeBack/CryptocurrencyData/Migrations/20231027172456_InitialCreate.Designer.cs

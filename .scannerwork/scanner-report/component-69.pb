@@ -1,1 +1,0 @@
-E 2csX4hrNCryptradeBack/TransactionManagement/Migrations/20231129123404_InitialCreate.cs

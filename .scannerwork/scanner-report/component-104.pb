@@ -1,1 +1,0 @@
-h 2csX1hrKCryptradeBack/CryptocurrencyData/Migrations/20231027172456_InitialCreate.cs

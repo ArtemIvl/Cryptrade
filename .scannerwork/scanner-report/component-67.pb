@@ -1,1 +1,0 @@
-C 2csXOhrWCryptradeBack/TransactionManagement/Migrations/20231129123404_InitialCreate.Designer.cs

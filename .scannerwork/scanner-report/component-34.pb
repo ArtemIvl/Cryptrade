@@ -1,1 +1,0 @@
-" 2jsX&hr5cryptradefront/src/CryptocurrencyData/SingleCrypto.js
