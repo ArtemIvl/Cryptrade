@@ -65,7 +65,7 @@ jobs:
       - name: Run SonarQube Analysis
         run: |
           cd CryptradeBack
-          dotnet sonarscanner begin /k:"CryptradeBack" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST }}"
+          dotnet sonarscanner begin /k:"CryptradeBack" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
           dotnet build
           dotnet test
           dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
