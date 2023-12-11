@@ -9,9 +9,12 @@ namespace PortfolioManagement.Services
 	public class PortfolioService
 	{
         private readonly PortfolioDbContext _context;
+        private readonly RabbitMQConsumer _rabbitMQConsumer;
+        private Dictionary<int, double> _portfolioTotalValues = new Dictionary<int, double>();
 
-        public PortfolioService(PortfolioDbContext context)
+        public PortfolioService(PortfolioDbContext context, RabbitMQConsumer rabbitMQConsumer)
         {
+            _rabbitMQConsumer = rabbitMQConsumer;
             _context = context;
         }
 
@@ -59,6 +62,27 @@ namespace PortfolioManagement.Services
                 portfolio.name = newName;
                 portfolio.description = newDescription;
                 _context.SaveChanges();
+            }
+        }
+
+        public async Task<TotalValueModel> GetTotalValue(int portfolioId)
+        {
+            try
+            {
+                _rabbitMQConsumer.StartConsuming();
+                var totalValue = await _rabbitMQConsumer.GetTotalValueByPortfolioId(portfolioId);
+                var profitLoss = await _rabbitMQConsumer.GetProfitLossByPortfolioId(portfolioId);
+                var portfolioData = new TotalValueModel
+                {
+                    totalValue = totalValue,
+                    profitLoss = profitLoss,
+                    portfolioId = portfolioId
+                };
+                return portfolioData;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

@@ -87,6 +87,28 @@ namespace PortfolioManagement.Controllers
                 return BadRequest($"Failed to delete portfolio: {ex.Message}");
             }
         }
+
+        [HttpGet("total-value")]
+        public async Task<IActionResult> GetTotalValue(int portfolioId)
+        {
+            try
+            {
+                var portfolioData = await _portfolioService.GetTotalValue(portfolioId);
+
+                if (portfolioData != null)
+                {
+                    return Ok(portfolioData);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Getting data failed: {ex.Message}");
+            }
+        }
     }
 }
 

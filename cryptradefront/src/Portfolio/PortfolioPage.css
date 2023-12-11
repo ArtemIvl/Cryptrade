@@ -117,6 +117,10 @@
   margin-left: 17.5%;
 }
 
+.thin {
+  border-top: 1px solid grey;
+}
+
 .assets-labels {
   margin: 0;
   margin-left: 17.5%;
@@ -125,4 +129,34 @@
   padding: 0;
   font-size: 14px;
   font-weight: 700;
+}
+
+.transactions-labels {
+  margin: 0;
+  margin-left: 17.5%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.assets-data {
+  margin: 0;
+  margin-left: 17.5%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.transactions-data {
+  margin: 0;
+  margin-left: 17.5%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 400;
 }

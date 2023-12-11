@@ -7,19 +7,51 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<RabbitMQConsumer>();
+builder.Services.AddScoped<RabbitMQPublisher>();
 builder.Services.AddScoped<TransactionService>();
+builder.Services.AddScoped<CryptocurrencyService>();
+builder.Services.AddHttpClient();
+builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-var connectionString = "Server=localhost;Database=transactiondb;User=root;Password=096-9503012;Port=3306";
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbPassword = Environment.GetEnvironmentVariable("DB_ROOT_PASSWORD");
 
+var connectionString = $"server={dbHost};port=3306;database={dbName};user=root;password={dbPassword}";
 // Configure the DbContext
 builder.Services.AddDbContext<TransactionDbContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 1, 0)))); // Use the correct database provider (UseMySql in this case)
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost8002",
+        builder => builder
+            .WithOrigins("http://localhost:8002")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost3000",
+        builder => builder
+            .WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
 
 var app = builder.Build();
+
+// Use CORS
+app.UseCors("AllowLocalhost3000");
+app.UseCors("AllowLocalhost8002");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

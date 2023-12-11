@@ -1,12 +1,14 @@
 import React, {useState, useEffect, useRef} from 'react'
 import axios from 'axios';
 import './SearchBox.css';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBox = ({handleSearchClick}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [topCoins, setTopCoins] = useState([]);
   const inputRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Focus on the input field when the component mounts
@@ -49,6 +51,11 @@ const SearchBox = ({handleSearchClick}) => {
     setSearchTerm(value);
     };
 
+    const handleCryptoClick = (symbol) => {
+      navigate(`/cryptocurrency/${symbol}`);
+    };
+  
+
   return (
     <div className="search-box">
     <div className='search-fields'>
@@ -67,7 +74,7 @@ const SearchBox = ({handleSearchClick}) => {
           <p>Trending</p>
           <ul>
             {topCoins.slice(0,5).map((coin) => (
-              <li key={coin.id}>{coin.name}</li>
+              <li onClick={() => handleCryptoClick(coin.symbol)} key={coin.id}>{coin.name}</li>
             ))}
           </ul>
         </>
@@ -77,7 +84,7 @@ const SearchBox = ({handleSearchClick}) => {
           <p>Search results:</p>
           <ul>
             {searchResults.slice(0,5).map((coin) => (
-              <li key={coin.id}>{coin.name}</li>
+              <li onClick={() => handleCryptoClick(coin.symbol)} key={coin.id}>{coin.name}</li>
             ))}
           </ul>
         </>

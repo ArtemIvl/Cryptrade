@@ -36,6 +36,8 @@ var config = new ConfigurationBuilder()
     .Build();
 
 builder.Services.AddSingleton<IConfiguration>(config);
+builder.Services.AddScoped<RabbitMQService>();
+builder.Services.AddScoped<CryptoService>();
 builder.Services.AddHttpClient<CryptoService>();
 
 // Configure CORS
@@ -48,9 +50,19 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod());
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost3000",
+        builder => builder
+            .WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
+
 var app = builder.Build();
 
 // Use CORS
+app.UseCors("AllowLocalhost3000");
 app.UseCors("AllowLocalhost8002");
 
 // Configure the HTTP request pipeline.

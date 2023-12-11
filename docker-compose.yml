@@ -35,6 +35,16 @@ services:
     ports:
       - 18003:3306
 
+  transactiondb:
+    container_name: transactiondb
+    image: mysql:8.2.0-oracle
+    environment:
+      - MYSQL_ROOT_PASSWORD=096-9503012
+    networks:
+      - backend
+    ports:
+      - 18004:3306
+
   usermanagement:
     container_name: user-management
     image: ${DOCKER_REGISTRY-}usermanagement
@@ -83,6 +93,22 @@ services:
     ports:
       - 8005:443
 
+  transactionmanagement:
+    container_name: transaction-management
+    image: ${DOCKER_REGISTRY-}transactionmanagement
+    build:
+      context: ./CryptradeBack
+      dockerfile: TransactionManagement/Dockerfile
+    networks:
+      - backend
+      - frontend
+    environment:
+      - DB_HOST=transactiondb
+      - DB_NAME=transactiondb
+      - DB_ROOT_PASSWORD=096-9503012
+    ports:
+      - 8006:443
+
   apigateway:
     container_name: api-gateway
     image: ${DOCKER_REGISTRY-}apigateway
@@ -94,14 +120,30 @@ services:
       - frontend
     ports:
       - 8001:80
-
-  cryptradefront:
-    container_name: front-end
-    image: ${DOCKER_REGISTRY-}cryptradefront
-    build:
-      context: ./cryptradefront
-      dockerfile: Dockerfile
+  
+  rabbitmq:
+    container_name: rabbitmq
+    hostname: rabbitmq
+    image: "rabbitmq:3.12.10-management"
     networks:
-      - frontend
+      - backend
     ports:
-      - 8002:3000
+      - "5672:5672"  # AMQP port
+      - "15672:15672"  # RabbitMQ management interface
+
+  # sonarqube:
+  #   image: sonarqube
+  #   ports:
+  #     - "9000:9000"
+  #     - "9092:9092"
+
+  # cryptradefront:
+  #   container_name: front-end
+  #   image: ${DOCKER_REGISTRY-}cryptradefront
+  #   build:
+  #     context: ./cryptradefront
+  #     dockerfile: Dockerfile
+  #   networks:
+  #     - frontend
+  #   ports:
+  #     - 8002:3000

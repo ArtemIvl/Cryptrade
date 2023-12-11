@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using CryptocurrencyData.Data;
 using CryptocurrencyData.Entity;
 using Microsoft.EntityFrameworkCore;
@@ -15,13 +11,15 @@ namespace CryptocurrencyData.Services
         private readonly string _apiKey;
         private readonly string _baseUrl;
         private readonly CryptoDbContext _context;
+        private readonly RabbitMQService _rabbitMQService;
 
-        public CryptoService(HttpClient httpClient, IConfiguration configuration, CryptoDbContext context)
+        public CryptoService(HttpClient httpClient, IConfiguration configuration, CryptoDbContext context, RabbitMQService rabbitMQService)
         {
             _httpClient = httpClient;
             _apiKey = configuration["ExternalApiSettings:ApiKey"];
             _baseUrl = configuration["ExternalApiSettings:BaseUrl"];
             _context = context;
+            _rabbitMQService = rabbitMQService;
         }
 
         public async Task<List<CryptoData>> GetCryptoDataAsync()
@@ -65,11 +63,11 @@ namespace CryptocurrencyData.Services
                 {
                     name = freshData.name,
                     symbol = freshData.symbol,
-                    price = freshData.quote.usd.price,
-                    marketCap = freshData.quote.usd.market_cap,
-                    volume24h = freshData.quote.usd.volume_24h,
-                    percentChange24h = freshData.quote.usd.percent_change_24h,
-                    circulatingSupply = freshData.circulating_supply,
+                    price = RoundToTwoDecimalPlaces(freshData.quote.usd.price),
+                    marketCap = RoundToTwoDecimalPlaces(freshData.quote.usd.market_cap),
+                    volume24h = RoundToTwoDecimalPlaces(freshData.quote.usd.volume_24h),
+                    percentChange24h = RoundToTwoDecimalPlaces(freshData.quote.usd.percent_change_24h),
+                    circulatingSupply = RoundToTwoDecimalPlaces(freshData.circulating_supply),
                     cmcRank = freshData.cmc_rank,
                     lastUpdated = DateTime.Now
                 }).ToList();
@@ -112,11 +110,37 @@ namespace CryptocurrencyData.Services
                 }
 
                 await _context.SaveChangesAsync();
+
+                // Serialize the list of CryptoData to JSON
+                var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(freshDataList);
+
+                // Publish the JSON data to RabbitMQ
+                _rabbitMQService.PublishMessage(jsonData);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        private double RoundToTwoDecimalPlaces(double? value)
+        {
+            const double threshold = 0.01; 
+
+            if (value.HasValue)
+            {
+                // Check if the absolute value is below the threshold
+                if (Math.Abs(value.Value) < threshold)
+                {
+                    // Round to a non-zero value
+                    return Math.Round(value.Value, 10, MidpointRounding.AwayFromZero);
+                }
+
+                // Round the value to two decimal places
+                return Math.Round(value.Value, 2, MidpointRounding.AwayFromZero);
+            }
+
+            return 0;
         }
 
         private bool IsDataStale(DateTime lastUpdated)
