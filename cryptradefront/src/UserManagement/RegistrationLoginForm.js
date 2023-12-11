@@ -60,11 +60,11 @@ const RegistrationLoginForm = ({handleLoginClick, setIsLoggedIn}) => {
     }
   };
 
-    // show hide password
-    const [passwordShown, setPasswordShown] = useState(false);
-    const togglePassword = () => {
-      setPasswordShown(!passwordShown);
-    }
+    // // show hide password
+    // const [passwordShown, setPasswordShown] = useState(false);
+    // const togglePassword = () => {
+    //   setPasswordShown(!passwordShown);
+    // }
 
 return (
   <div className='overlay'>
