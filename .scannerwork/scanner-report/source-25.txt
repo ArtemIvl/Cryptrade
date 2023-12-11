@@ -1,0 +1,50 @@
+.profile-container {
+    width: 90%;
+    margin: auto;
+  }
+
+.action-button {
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    color: white;
+    font-weight: bold;
+    background-color: #3861FB;
+}
+
+.action-button:hover {
+  cursor: pointer;
+  background-color: #3874FB;
+  transition: 0.2;
+}
+
+.content-container {
+  margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.content-container span {
+  display: flex;
+  width: 25%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+span input {
+  border: 2px solid #171924;
+  border-radius: 10px;
+  height: 36px;
+  padding-left: 10px;
+  outline: none;
+  width: 175px;
+  font-family: Inter, "system-ui", "segoe ui", "Roboto", Helvetica, Arial, sans-serif;
+}
+
+.content-container label {
+  font-size: 13px;
+  font-weight: bold;
+}

@@ -1,0 +1,1 @@
+R 2csXnhr@CryptradeBack/TransactionManagement/Services/RabbitMQConsumer.cs

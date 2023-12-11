@@ -1,0 +1,89 @@
+.cryptocurrencies-container {
+  width: 90%;
+  margin: auto;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.crypto-list {
+    list-style: none;
+    padding: 0;
+  }
+
+.crypto-labels {
+  margin-top: -5px;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 0.5fr 0.75fr 0.75fr 0.5fr 1fr 1fr 1fr;
+  font-size: 14px;
+  font-weight: 700;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+}
+
+.right {
+  justify-self: end;
+}
+
+.center {
+  justify-self: center;
+}
+
+.left {
+  justify-self: start;
+}
+
+.crypto-labels-data {
+  display: grid;
+  padding: 5px;
+  grid-template-columns: 0.5fr 0.75fr 0.75fr 0.5fr 1fr 1fr 1fr;
+  font-size: 14px;
+}
+
+.crypto-labels-data:hover {
+  cursor: pointer;
+  background-color: #323546;
+  transition: 0.2s;
+}
+
+  .thin-line {
+    margin: 0;
+    border-top: 1px solid grey;
+    grid-column: 1/8;
+    width: 100%;
+  }
+  
+  /* Style for the name */
+  .crypto-name {
+    color: #333;
+  }
+  
+  /* Style for the symbol */
+  .crypto-symbol {
+    color: #666;
+  }
+  
+  /* Style for the price */
+  .crypto-price {
+    color: #007bff;
+  }
+  
+  /* Style for the 24-hour volume */
+  .crypto-volume {
+    color: #28a745;
+  }
+  
+  /* Style for the market cap */
+  .crypto-market-cap {
+    color: #f39c12;
+  }
+  
+  /* Style for the 24-hour price change */
+  .crypto-price-change {
+    color: #dc3545;
+  }
+  

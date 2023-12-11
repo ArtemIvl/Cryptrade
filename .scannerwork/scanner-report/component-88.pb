@@ -1,0 +1,1 @@
+X 2csX,hrLCryptradeBack/PortfolioManagement/Migrations/20231109235525_InitialCreate.cs

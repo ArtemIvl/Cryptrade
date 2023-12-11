@@ -1,0 +1,1 @@
+j 2csX;hrKCryptradeBack/CryptocurrencyData/Migrations/CryptoDbContextModelSnapshot.cs

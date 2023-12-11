@@ -1,0 +1,1 @@
+= 2csXhrGCryptradeBack/JwtAuthenticationManager/Models/AuthenticationResponse.cs

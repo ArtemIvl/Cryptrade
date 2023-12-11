@@ -1,0 +1,13 @@
+﻿/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/CustomJwtAuthExtension.cs
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/Entity/User.cs
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/JwtTokenHandler.cs
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/Models/AuthenticationRequest.cs
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/Models/AuthenticationResponse.cs
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/Program.cs
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/obj/Debug/net7.0/JwtAuthenticationManager.GlobalUsings.g.cs
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/obj/Debug/net7.0/.NETCoreApp,Version=v7.0.AssemblyAttributes.cs
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/obj/Debug/net7.0/JwtAuthenticationManager.AssemblyInfo.cs
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/appsettings.Development.json
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/appsettings.json
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/.DS_Store
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/JwtAuthenticationManager/Properties/launchSettings.json

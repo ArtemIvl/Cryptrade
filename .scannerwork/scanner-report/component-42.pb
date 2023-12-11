@@ -1,0 +1,1 @@
+* 2csX/hrGCryptradeBack/UserManagement/Migrations/20231022153643_InitialCreate.cs

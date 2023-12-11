@@ -1,0 +1,1 @@
+_ 2csXhr;CryptradeBack/PortfolioManagement/Models/TotalValueModel.cs

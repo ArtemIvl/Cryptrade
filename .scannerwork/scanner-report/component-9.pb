@@ -1,0 +1,1 @@
+	 2webX,hr cryptradefront/public/index.html

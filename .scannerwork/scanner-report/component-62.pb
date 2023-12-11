@@ -1,0 +1,1 @@
+> 2csX	hrFCryptradeBack/JwtAuthenticationManager/Models/AuthenticationRequest.cs

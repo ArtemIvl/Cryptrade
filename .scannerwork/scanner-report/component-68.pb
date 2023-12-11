@@ -1,0 +1,1 @@
+D 2csXLhrSCryptradeBack/TransactionManagement/Migrations/TransactionDbContextModelSnapshot.cs

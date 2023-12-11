@@ -1,0 +1,1 @@
++ 2csX6hrPCryptradeBack/UserManagement/Migrations/20231022153643_InitialCreate.Designer.cs
