@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -41,7 +42,7 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
     } else {
       navigate('/cryptocurrency');
     }
-  }, [existingPortfolio, fetchPortfolioData, getAllAssets, isLoggedIn, navigate, token]);
+  }, [existingPortfolio, isLoggedIn, navigate, token]);
 
   const fetchTotalValue = async () => {
     try {
@@ -53,7 +54,7 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
     }
   };
 
-  const fetchPortfolioData = useCallback(async () => {
+  const fetchPortfolioData = async () => {
     try {
       const response = await axios.get(`https://localhost:8004/api/portfolio`, {
         headers: {
@@ -68,7 +69,7 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
-  });
+  };
 
   const handleCreatePortfolio = async (e) => {
     e.preventDefault();
@@ -119,7 +120,7 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
     setShowEditPortfolio(true);
   }
 
-  const getAllAssets = useCallback(async () => {
+  const getAllAssets = async () => {
     try {
       const response = await axios.get(`https://localhost:8006/api/Transaction/assets?portfolioId=${localStorage.getItem('portfolioId')}`);
       setAssets(response.data);
@@ -127,7 +128,7 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
   } catch (error) {
       console.error('Error fetching assets:', error);
     }
-  })
+  };
     
   const handleDeleteTransaction = async (transaction) => {
     try {
