@@ -19,7 +19,7 @@
 .container-right {
     display: flex;
     width: 50%;
-    justify-content: end;
+    justify-content: flex-end;
     gap: 50px;
     align-items: center;
 }
