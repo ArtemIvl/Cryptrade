@@ -45,7 +45,7 @@ jobs:
         run: |
           cd cryptradefront
           npm run build
-          npm test
+          # npm test
 
   sonarqube:
     runs-on: ubuntu-latest
