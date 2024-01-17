@@ -12,16 +12,21 @@ function CryptocurrencyList() {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get('https://localhost:8005/api/Crypto')
-      .then(response => {
-        setCryptoData(response.data);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        setIsLoading(false);
-      });
+    handleSortByMarketCap();
   }, []);
+
+  const handleSortByMarketCap = () => {
+    setIsLoading(true);
+    axios.get('https://localhost:8005/api/Crypto')
+    .then(response => {
+      setCryptoData(response.data);
+      setIsLoading(false);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      setIsLoading(false);
+    });
+  };
 
   const handleSortByPriceChange = () => {
     setIsLoading(true);
@@ -49,25 +54,41 @@ function CryptocurrencyList() {
       });
   };
 
+  const handleRefreshData = () => {
+    setIsLoading(true);
+    axios.get('https://localhost:8005/api/Crypto/refresh-data')
+    .then(response => {
+      setCryptoData(response.data);
+      setIsLoading(false);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      setIsLoading(false);
+    });
+  };
+
   const handleCryptoClick = (symbol) => {
     navigate(`/cryptocurrency/${symbol}`);
   };
 
   return (
     <div className='cryptocurrencies-container'>
-      <h1 className='title'>Today's cryptocurrencies by Market Capitalizaiton</h1>
+      <div className='header-container'>
+      <h1 className='title'>Today's cryptocurrencies by Market Capitalization</h1>
+      <button onClick={handleRefreshData}>Refresh crypto data</button>
+      </div>
       <hr />
       {isLoading ? (
         <Loading />
       ) : (
       <ul className="crypto-list">
         <li className="crypto-labels">
-        <p className="left">#</p>
+            <p className="left">#</p>
             <p className="left">Name</p>
             <p className="right">Price</p>
-            <p className="right" onClick={handleSortByPriceChange}>24h %</p>
-            <p className="right">Market Cap</p>
-            <p className="right" onClick={handleSortByVolume24h}>Volume 24h</p>
+            <p className="right hoverable" onClick={handleSortByPriceChange}>24h %</p>
+            <p className="right hoverable" onClick={handleSortByMarketCap}>Market Cap</p>
+            <p className="right hoverable" onClick={handleSortByVolume24h}>Volume 24h</p>
             <p className="right">Circulating Supply</p>
         </li>
         <hr className='thin-line'/>

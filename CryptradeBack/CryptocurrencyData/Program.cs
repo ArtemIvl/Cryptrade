@@ -21,7 +21,7 @@ var connectionString = $"server={dbHost};port=3306;database={dbName};user=root;p
 
 // Configure the DbContext
 builder.Services.AddDbContext<CryptoDbContext>(options =>
-    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 1, 0)))); // Use the correct database provider (UseMySql in this case)
+    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 1, 0))));
 
 builder.Services.AddAuthentication(
         CertificateAuthenticationDefaults.AuthenticationScheme)
@@ -43,18 +43,9 @@ builder.Services.AddHttpClient<CryptoService>();
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost8002",
+    options.AddPolicy("AllowLocalhosts",
         builder => builder
-            .WithOrigins("http://localhost:8002")
-            .AllowAnyHeader()
-            .AllowAnyMethod());
-});
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowLocalhost3000",
-        builder => builder
-            .WithOrigins("http://localhost:3000")
+            .WithOrigins("http://localhost:3000", "http://localhost:8002")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -62,8 +53,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Use CORS
-app.UseCors("AllowLocalhost3000");
-app.UseCors("AllowLocalhost8002");
+app.UseCors("AllowLocalhosts");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -81,4 +71,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-

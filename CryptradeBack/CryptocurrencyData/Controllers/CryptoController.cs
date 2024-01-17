@@ -31,6 +31,20 @@ namespace CryptocurrencyData.Controllers
             }
         }
 
+        [HttpGet("refresh-data")]
+        public async Task<IActionResult> GetNewCryptoData()
+        {
+            try
+            {
+                var cryptoData = await _cryptoService.GetCryptoDataFromApi();
+                return Ok(cryptoData);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred while fetching data." + ex.ToString() });
+            }
+        }
+
         [HttpGet("get-sorted-by-price-data")]
         public async Task<IActionResult> SortByPriceChange()
         {

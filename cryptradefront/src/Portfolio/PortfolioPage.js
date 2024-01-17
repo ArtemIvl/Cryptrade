@@ -5,7 +5,6 @@ import axios from 'axios';
 import './PortfolioPage.css';
 import EditPortfolio from './EditPortfolio';
 import EditTransaction from '../Transactions/EditTransaction';
-import PortfolioChart from './PortfolioChart';
 
 function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
   const navigate = useNavigate();
@@ -20,16 +19,6 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
   const [showEditTransaction, setShowEditTransaction] = useState(false);
   const [showEditPortfolio, setShowEditPortfolio] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-
-  const [chartData] = ({
-    labels: [2020, 2021, 2022, 2023],
-    datasets: [{
-      label: 'Portfolio Value',
-      data: [0, 10, 5, 2],
-    }]
-  });
-
-  console.log(transactions.map((transaction) => transaction.createdAt));
 
   useEffect(() => {
     if (isLoggedIn && token) {
@@ -190,7 +179,7 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
             <span className="portfolio-name-worth">
               <label>{existingPortfolio.name}</label>
               <br />
-              <label>{portfolioData.totalValue}</label>
+              <label>{portfolioData.totalValue} $</label>
             </span>
             <span className="portfolio-actions">
               <button className="portfolio-add-transaction" onClick={handleAddTransaction}>
@@ -204,11 +193,10 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
               </button>
             </span>
             <span className="portfolio-history">History <br />
-            <PortfolioChart chartData={chartData} />
             </span>
-            <span className="portfolio-best-performer">BTC</span>
-            <span className="portfolio-worst-performer">ETH</span>
-            <span className="portfolio-all-time-profit">All time profit/loss: {Math.round(portfolioData.profitLoss)}</span>
+            <span className="portfolio-best-performer">Best Performer<br />{portfolioData?.bestPerformer?.cryptoSymbol}<br />{portfolioData?.bestPerformer?.profitLoss} $</span>
+            <span className="portfolio-worst-performer">Worst Performer<br />{portfolioData?.worstPerformer?.cryptoSymbol}<br />{portfolioData?.worstPerformer?.profitLoss} $</span>
+            <span className="portfolio-all-time-profit">All time profit/loss: {Math.round(portfolioData.profitLoss)} $</span>
           </div>
           {showTransactions ? (
             <>

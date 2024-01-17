@@ -69,14 +69,18 @@ namespace PortfolioManagement.Services
         {
             try
             {
-                _rabbitMQConsumer.StartConsuming();
+                _rabbitMQConsumer.StartConsuming(portfolioId);
                 var totalValue = await _rabbitMQConsumer.GetTotalValueByPortfolioId(portfolioId);
                 var profitLoss = await _rabbitMQConsumer.GetProfitLossByPortfolioId(portfolioId);
+                var bestPerformer = await _rabbitMQConsumer.GetBestPerformerByPortfolioId(portfolioId);
+                var worstPerformer = await _rabbitMQConsumer.GetWorstPerformerByPortfolioId(portfolioId);
                 var portfolioData = new TotalValueModel
                 {
                     totalValue = totalValue,
                     profitLoss = profitLoss,
-                    portfolioId = portfolioId
+                    bestPerformer = bestPerformer,
+                    worstPerformer = worstPerformer,
+                    portfolioId = portfolioId,
                 };
                 return portfolioData;
             }

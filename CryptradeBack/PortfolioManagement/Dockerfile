@@ -5,11 +5,11 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["PortfolioManagement/PortfolioManagement.csproj", "PortfolioManagement/"]
-COPY ["JwtAuthenticationManager/JwtAuthenticationManager.csproj", "JwtAuthenticationManager/"]
+COPY ["PortfolioManagement.csproj", "PortfolioManagement/"]
+# COPY ["JwtAuthenticationManager/JwtAuthenticationManager.csproj", "JwtAuthenticationManager/"]
 RUN dotnet restore "PortfolioManagement/PortfolioManagement.csproj"
-COPY . .
 WORKDIR "/src/PortfolioManagement"
+COPY . .
 RUN dotnet build "PortfolioManagement.csproj" -c Release -o /app/build
 
 FROM build AS publish

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transactionmanagement-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: transactionmanagement
+  template:
+    metadata:
+      labels:
+        app: transactionmanagement
+    spec:
+      containers:
+      - name: transactionmanagement
+        image: cryptradeacr.azurecr.io/transactionmanagement:1.0.0
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "0.5"
+            memory: "256Mi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: transactionmanagement-service
+spec:
+  selector:
+    app: transactionmanagement
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer

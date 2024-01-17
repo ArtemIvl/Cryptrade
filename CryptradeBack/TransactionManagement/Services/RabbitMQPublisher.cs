@@ -2,6 +2,7 @@
 using System;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using TransactionManagement.Models;
 
 namespace TransactionManagement.Services
 {
@@ -29,19 +30,25 @@ namespace TransactionManagement.Services
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
 
-            // Declare Exchange and Queue
+            // Declare Exchange
             _channel.ExchangeDeclare(_configuration["RabbitMQPublish:ExchangeName"], ExchangeType.Fanout);
-            _channel.QueueDeclare(_configuration["RabbitMQPublish:QueueName"], durable: true, exclusive: false, autoDelete: false, arguments: null);
-            _channel.QueueBind(_configuration["RabbitMQPublish:QueueName"], _configuration["RabbitMQPublish:ExchangeName"], "");
         }
 
-        public void PublishMessage(double totalValue, double profitLoss, int portfolioId)
+        public void PublishMessage(double totalValue, double profitLoss, int portfolioId, Performer bestPerformer, Performer worstPerformer)
         {
+            // Dynamically generate a unique queue name based on the portfolio ID
+            var queueName = $"{_configuration["RabbitMQPublish:QueueName"]}_{portfolioId}";
+
+            // Declare the Queue (if not already declared)
+            _channel.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+
             var message = new
             {
                 totalValue = totalValue,
                 profitLoss = profitLoss,
-                portfolioId = portfolioId
+                portfolioId = portfolioId,
+                bestPerformer = bestPerformer,
+                worstPerformer = worstPerformer
             };
 
             // Convert the message to a JSON string
@@ -49,7 +56,9 @@ namespace TransactionManagement.Services
 
             // Convert the message to bytes
             var body = Encoding.UTF8.GetBytes(messageJson);
-            _channel.BasicPublish(exchange: _configuration["RabbitMQPublish:ExchangeName"], routingKey: "", basicProperties: null, body: body);
+
+            // Publish to the specific queue
+            _channel.BasicPublish(exchange: _configuration["RabbitMQPublish:ExchangeName"], routingKey: queueName, basicProperties: null, body: body);
         }
 
         public void Dispose()
@@ -59,4 +68,3 @@ namespace TransactionManagement.Services
         }
     }
 }
-

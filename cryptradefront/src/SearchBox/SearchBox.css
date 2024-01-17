@@ -1,8 +1,8 @@
 .search-box {
     position: absolute;
     z-index: 1000;
-    border: 1px solid #323546;
-    background-color: #323546;
+    border: 1px solid #222531;
+    background-color: #222531;
     border-radius: 10px;
     display: flex;
     width: 500px;
@@ -16,11 +16,15 @@
 
 .search-bar-box {
     border: none;
-    background-color: #323546;
+    background-color: #222531;
     color: #fff;
     height: 30px;
     outline: none;
     font-family: Inter, "system-ui", "segoe ui", "Roboto", Helvetica, Arial, sans-serif;
+}
+
+.search-bar-box:hover {
+    border: none;
 }
 
 .search-fields {
@@ -32,6 +36,23 @@
     width: 100%;
 }
 
-.search-result {
+.coin-list-search {
+    display: flex;
+    flex-direction: column;
+}
 
+.coin-display {
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.coin-display:hover {
+    cursor: pointer;
+    background-color: #323546;
+}
+
+.coin-price {
+    color: #757575;
 }

@@ -16,9 +16,9 @@
   <ItemGroup>
     <PackageReference Include="Ocelot" Version="20.0.0" />
   </ItemGroup>
-  <ItemGroup>
+  <!-- <ItemGroup>
     <ProjectReference Include="..\JwtAuthenticationManager\JwtAuthenticationManager.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
-  </ItemGroup>
+  </ItemGroup> -->
 </Project>

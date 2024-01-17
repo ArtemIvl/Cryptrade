@@ -52,6 +52,7 @@ const SearchBox = ({handleSearchClick}) => {
     };
 
     const handleCryptoClick = (symbol) => {
+      handleSearchClick();
       navigate(`/cryptocurrency/${symbol}`);
     };
   
@@ -71,22 +72,28 @@ const SearchBox = ({handleSearchClick}) => {
     <div className="search-results">
       {searchTerm === '' && (
         <>
-          <p>Trending</p>
-          <ul>
+          <h3>Trending</h3>
+          <div className='coin-list-search'>
             {topCoins.slice(0,5).map((coin) => (
-              <li onClick={() => handleCryptoClick(coin.symbol)} key={coin.id}>{coin.name}</li>
+              <li className='coin-display' onClick={() => handleCryptoClick(coin.symbol)} key={coin.id}>
+                <span>{coin.name} <b>{coin.symbol}</b></span>
+                <span className='coin-price'>{coin.price}$</span>
+              </li>
             ))}
-          </ul>
+            </div>
         </>
       )}
       {searchTerm !== '' && (
         <>
-          <p>Search results:</p>
-          <ul>
+          <h3>Search results:</h3>
+          <div className='coin-list-search'>
             {searchResults.slice(0,5).map((coin) => (
-              <li onClick={() => handleCryptoClick(coin.symbol)} key={coin.id}>{coin.name}</li>
+              <li className='coin-display' onClick={() => handleCryptoClick(coin.symbol)} key={coin.id}>
+                <span>{coin.name} <b>{coin.symbol}</b></span>
+                <span className='coin-price'>{coin.price}$</span>
+                </li>
             ))}
-          </ul>
+          </div>
         </>
       )}
     </div>

@@ -9,6 +9,7 @@ import SingleCrypto from './CryptocurrencyData/SingleCrypto';
 import ProfilePage from './Profile/ProfilePage';
 import PortfolioPage from './Portfolio/PortfolioPage';
 import AddTransaction from './Transactions/AddTransaction';
+import TradingPage from './Trading/TradingPage';
 
 function App() {
   const token = localStorage.getItem('token');
@@ -55,6 +56,7 @@ function App() {
         <Route path="/cryptocurrency/:symbol" element={<SingleCrypto />} />
         <Route path="/profile" element={<ProfilePage isLoggedIn={isLoggedIn}/>} />
         <Route path="/portfolio" element={<PortfolioPage isLoggedIn={isLoggedIn} handleAddTransaction={handleAddTransaction}/>} />
+        <Route path="/trading" element={<TradingPage isLoggedIn={isLoggedIn}/>} />
       </Routes>
     </Router>
     </div>

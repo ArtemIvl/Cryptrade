@@ -103,13 +103,36 @@ namespace TransactionManagement.Services
 
             double profitloss = 0;
 
+            Performer bestPerformer = null;
+            Performer worstPerformer = null;
+
             foreach (Asset asset in assets)
             {
                 totalvalue += asset.amount * asset.currentPrice;
                 profitloss += asset.profitLoss;
+
+                if (bestPerformer == null || asset.profitLoss > bestPerformer.profitLoss)
+                {
+                    bestPerformer = new Performer
+                    {
+                        cryptoName = asset.cryptoName,
+                        cryptoSymbol = asset.cryptoSymbol,
+                        profitLoss = asset.profitLoss
+                    };
+                }
+
+                if (worstPerformer == null || asset.profitLoss < worstPerformer.profitLoss)
+                {
+                    worstPerformer = new Performer
+                    {
+                        cryptoName = asset.cryptoName,
+                        cryptoSymbol = asset.cryptoSymbol,
+                        profitLoss = asset.profitLoss
+                    };
+                }
             }
 
-            _rabbitMQPublisher.PublishMessage(totalvalue, profitloss, portfolioId);
+            _rabbitMQPublisher.PublishMessage(totalvalue, profitloss, portfolioId, bestPerformer, worstPerformer);
             
             return assets;
         }

@@ -45,8 +45,18 @@ services:
     ports:
       - 18004:3306
 
+  orderdb:
+    container_name: orderdb
+    image: mysql:8.2.0-oracle
+    environment:
+      - MYSQL_ROOT_PASSWORD=096-9503012
+    networks:
+      - backend
+    ports:
+      - 18005:3306
+
   usermanagement:
-    container_name: user-management
+    container_name: usermanagement
     image: ${DOCKER_REGISTRY-}usermanagement
     build:
       context: ./CryptradeBack
@@ -62,7 +72,7 @@ services:
       - 8003:443
 
   portfoliomanagement:
-    container_name: portfolio-management
+    container_name: portfoliomanagement
     image: ${DOCKER_REGISTRY-}portfoliomanagement
     build:
       context: ./CryptradeBack
@@ -78,7 +88,7 @@ services:
       - 8004:443
 
   cryptocurrencydata:
-    container_name: cryptocurrency-data
+    container_name: cryptocurrencydata
     image: ${DOCKER_REGISTRY-}cryptocurrencydata
     build:
       context: ./CryptradeBack
@@ -94,7 +104,7 @@ services:
       - 8005:443
 
   transactionmanagement:
-    container_name: transaction-management
+    container_name: transactionmanagement
     image: ${DOCKER_REGISTRY-}transactionmanagement
     build:
       context: ./CryptradeBack
@@ -109,8 +119,33 @@ services:
     ports:
       - 8006:443
 
+  # tradingmanagement:
+  #   container_name: tradingmanagement
+  #   image: ${DOCKER_REGISTRY-}tradingmanagement
+  #   build:
+  #     context: ./CryptradeBack
+  #     dockerfile: TradingManagement/Dockerfile
+  #   networks:
+  #     - backend
+  #     - frontend
+  #   environment:
+  #     - DB_HOST=orderdb
+  #     - DB_NAME=orderdb
+  #     - DB_ROOT_PASSWORD=096-9503012
+  #   ports:
+  #     - 8008:443
+
+  # simulatedtrading:
+  #   container_name: simulatedtrading
+  #   image: ${DOCKER_REGISTRY-}simulatedtrading
+  #   build:
+  #     context: ./CryptradeBack
+  #     dockerfile: SimulatedTrading/Dockerfile
+  #   ports:
+  #     - 8007:443
+
   apigateway:
-    container_name: api-gateway
+    container_name: apigateway
     image: ${DOCKER_REGISTRY-}apigateway
     build:
       context: ./CryptradeBack
@@ -119,7 +154,7 @@ services:
       - backend
       - frontend
     ports:
-      - 8001:80
+      - 8001:443
   
   rabbitmq:
     container_name: rabbitmq
@@ -131,19 +166,13 @@ services:
       - "5672:5672"  # AMQP port
       - "15672:15672"  # RabbitMQ management interface
 
-  # sonarqube:
-  #   image: sonarqube
-  #   ports:
-  #     - "9000:9000"
-  #     - "9092:9092"
-
-  # cryptradefront:
-  #   container_name: front-end
-  #   image: ${DOCKER_REGISTRY-}cryptradefront
-  #   build:
-  #     context: ./cryptradefront
-  #     dockerfile: Dockerfile
-  #   networks:
-  #     - frontend
-  #   ports:
-  #     - 8002:3000
+  cryptradefront:
+    container_name: cryptradefront
+    image: ${DOCKER_REGISTRY-}cryptradefront
+    build:
+      context: ./cryptradefront
+      dockerfile: Dockerfile
+    networks:
+      - frontend
+    ports:
+      - 8002:3000

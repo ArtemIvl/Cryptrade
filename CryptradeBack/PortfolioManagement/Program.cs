@@ -1,4 +1,4 @@
-﻿using JwtAuthenticationManager;
+﻿// using JwtAuthenticationManager;
 using Microsoft.EntityFrameworkCore;
 using PortfolioManagement.Data;
 using PortfolioManagement.Services;
@@ -12,7 +12,7 @@ builder.Services.AddScoped<PortfolioService>();
 builder.Services.AddScoped<RabbitMQConsumer>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCustomJwtAuthentication();
+// builder.Services.AddCustomJwtAuthentication();
 
 var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
 var dbName = Environment.GetEnvironmentVariable("DB_NAME");
@@ -28,18 +28,9 @@ builder.Services.AddDbContext<PortfolioDbContext>(options =>
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost8002",
+    options.AddPolicy("AllowLocalhosts",
         builder => builder
-            .WithOrigins("http://localhost:8002")
-            .AllowAnyHeader()
-            .AllowAnyMethod());
-});
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowLocalhost3000",
-        builder => builder
-            .WithOrigins("http://localhost:3000")
+            .WithOrigins("http://localhost:3000", "http://localhost:8002")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -47,9 +38,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Use CORS
-app.UseCors("AllowLocalhost3000");
-app.UseCors("AllowLocalhost8002");
-
+app.UseCors("AllowLocalhosts");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

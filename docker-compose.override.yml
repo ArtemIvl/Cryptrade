@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   usermanagement:
+    container_name: usermanagement
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -11,7 +12,9 @@ services:
     volumes:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+
   transactionmanagement:
+    container_name: transactionmanagement
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -23,6 +26,7 @@ services:
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
 
   portfoliomanagement:
+    container_name: portfoliomanagement
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -34,6 +38,7 @@ services:
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
 
   cryptocurrencydata:
+    container_name: cryptocurrencydata
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -44,13 +49,31 @@ services:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
 
+  # simulatedtrading:
+  #   container_name: simulatedtrading
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_URLS=https://+:443;http://+:80
+  #   ports:
+  #     - "80"
+  #     - "443"
+  #   volumes:
+  #     - ~/.aspnet/https:/root/.aspnet/https:ro
+  #     - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+
   apigateway:
+    container_name: apigateway
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+    depends_on:
+      - usermanagement
+      - transactionmanagement
+      - portfoliomanagement
+      - cryptocurrencydata
     ports:
       - "80"
-      - "443"
+      - "8001:443"
     volumes:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro

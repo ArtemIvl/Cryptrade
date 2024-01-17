@@ -40,16 +40,21 @@ namespace PortfolioManagement.Services
 
             // Declare Exchange and Queue
             _channel.ExchangeDeclare(_configuration["RabbitMQ:ExchangeName"], ExchangeType.Fanout);
-            _channel.QueueDeclare(_configuration["RabbitMQ:QueueName"], durable: true, exclusive: false, autoDelete: false, arguments: null);
-            _channel.QueueBind(_configuration["RabbitMQ:QueueName"], _configuration["RabbitMQ:ExchangeName"], "");
         }
 
-        public void StartConsuming()
+        public void StartConsuming(int portfolioId)
         {
             if (_isConsuming)
             {
                 return; // Already consuming, prevent starting again
             }
+
+            var queueName = $"{_configuration["RabbitMQ:QueueName"]}_{portfolioId}";
+
+            // Declare Queue (if not already declared)
+            _channel.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+
+            _channel.QueueBind(queue: queueName, exchange: _configuration["RabbitMQ:ExchangeName"], routingKey: "");
 
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += (model, ea) =>
@@ -66,7 +71,7 @@ namespace PortfolioManagement.Services
                         storedTotalValue = totalValue;
                     }
 
-                    // update total value
+                    // Update total value
                     _consumptionCompleted.TrySetResult(true);
                 }
                 catch (Exception ex)
@@ -76,7 +81,7 @@ namespace PortfolioManagement.Services
                 }
             };
 
-            _channel.BasicConsume(queue: _configuration["RabbitMQ:QueueName"], autoAck: true, consumer: consumer);
+            _channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
             _isConsuming = true;
         }
 
@@ -107,6 +112,36 @@ namespace PortfolioManagement.Services
                     return storedTotalValue.profitLoss;
                 }
                 else return 0;
+            }
+        }
+
+        public async Task<Performer> GetBestPerformerByPortfolioId(int portfolioId)
+        {
+            // Wait for the completion of the current consumption cycle
+            await _consumptionCompleted.Task;
+
+            lock (_lock)
+            {
+                if (storedTotalValue.portfolioId == portfolioId)
+                {
+                    return storedTotalValue.bestPerformer;
+                }
+                else return null;
+            }
+        }
+
+        public async Task<Performer> GetWorstPerformerByPortfolioId(int portfolioId)
+        {
+            // Wait for the completion of the current consumption cycle
+            await _consumptionCompleted.Task;
+
+            lock (_lock)
+            {
+                if (storedTotalValue.portfolioId == portfolioId)
+                {
+                    return storedTotalValue.worstPerformer;
+                }
+                else return null;
             }
         }
 
