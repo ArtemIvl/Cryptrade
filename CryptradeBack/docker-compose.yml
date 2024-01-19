@@ -1,8 +1,0 @@
-version: '3.4'
-
-services:
-  cryptocurrencydata:
-    image: ${DOCKER_REGISTRY-}cryptocurrencydata
-    build:
-      context: .
-      dockerfile: CryptocurrencyData/Dockerfile

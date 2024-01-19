@@ -7,7 +7,7 @@ namespace TransactionManagement.Services
     {
         private readonly RabbitMQConsumer _rabbitMQConsumer;
 
-        public CryptocurrencyService( RabbitMQConsumer rabbitMQConsumer)
+        public CryptocurrencyService(RabbitMQConsumer rabbitMQConsumer)
         {
             _rabbitMQConsumer = rabbitMQConsumer;
         }
@@ -29,4 +29,3 @@ namespace TransactionManagement.Services
     }
 
 }
-

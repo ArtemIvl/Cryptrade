@@ -17,7 +17,7 @@ function CryptocurrencyList() {
 
   const handleSortByMarketCap = () => {
     setIsLoading(true);
-    axios.get('https://localhost:8005/api/Crypto')
+    axios.get('http://localhost:5024/api/Crypto')
     .then(response => {
       setCryptoData(response.data);
       setIsLoading(false);
@@ -30,7 +30,7 @@ function CryptocurrencyList() {
 
   const handleSortByPriceChange = () => {
     setIsLoading(true);
-    axios.get('https://localhost:8005/api/Crypto/get-sorted-by-price-data')
+    axios.get('http://localhost:5024/api/Crypto/get-sorted-by-price-data')
       .then(response => {
         setCryptoData(response.data);
         setIsLoading(false);
@@ -43,7 +43,7 @@ function CryptocurrencyList() {
 
   const handleSortByVolume24h = () => {
     setIsLoading(true);
-    axios.get('https://localhost:8005/api/Crypto/get-sorted-by-volume-data')
+    axios.get('http://localhost:5024/api/Crypto/get-sorted-by-volume-data')
       .then(response => {
         setCryptoData(response.data);
         setIsLoading(false);
@@ -56,7 +56,7 @@ function CryptocurrencyList() {
 
   const handleRefreshData = () => {
     setIsLoading(true);
-    axios.get('https://localhost:8005/api/Crypto/refresh-data')
+    axios.get('http://localhost:5024/api/Crypto/refresh-data')
     .then(response => {
       setCryptoData(response.data);
       setIsLoading(false);

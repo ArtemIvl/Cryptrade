@@ -111,17 +111,25 @@ namespace CryptocurrencyData.Services
 
                 await _context.SaveChangesAsync();
 
-                // Serialize the list of CryptoData to JSON
-                var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(freshDataList);
+                // Publish messages with cryptocurrency symbol as the routing key
+                foreach (var freshData in freshDataList)
+                {
+                    // Serialize the CryptoData to JSON
+                    var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(freshData);
 
-                // Publish the JSON data to RabbitMQ
-                _rabbitMQService.PublishMessage(jsonData);
+                    // Use the cryptocurrency symbol as the routing key
+                    var routingKey = $"crypto.{freshData.symbol}";
+
+                    // Publish the JSON data to RabbitMQ with the specific routing key
+                    _rabbitMQService.PublishMessage(jsonData);
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+
 
         private double RoundToTwoDecimalPlaces(double? value)
         {

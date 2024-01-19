@@ -121,6 +121,15 @@
     font-weight: 700;
 }
 
+.values-orders {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+}
+
 .thin-line {
     border-top: 1px solid grey;
 }

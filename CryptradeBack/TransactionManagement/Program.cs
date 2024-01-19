@@ -14,14 +14,17 @@ builder.Services.AddScoped<CryptocurrencyService>();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
-var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
-var dbName = Environment.GetEnvironmentVariable("DB_NAME");
-var dbPassword = Environment.GetEnvironmentVariable("DB_ROOT_PASSWORD");
+builder.Configuration.AddJsonFile("appsettings.json");
 
-var connectionString = $"server={dbHost};port=3306;database={dbName};user=root;password={dbPassword}";
+//var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+//var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+//var dbPassword = Environment.GetEnvironmentVariable("DB_ROOT_PASSWORD");
+
+//var connectionString = $"server={dbHost};port=3306;database={dbName};user=root;password={dbPassword}";
 // Configure the DbContext
+
 builder.Services.AddDbContext<TransactionDbContext>(options =>
-    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 1, 0)))); // Use the correct database provider (UseMySql in this case)
+    options.UseMySql(builder.Configuration.GetConnectionString("MySqlConnection"), new MySqlServerVersion(new Version(8, 1, 0)))); // Use the correct database provider (UseMySql in this case)
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

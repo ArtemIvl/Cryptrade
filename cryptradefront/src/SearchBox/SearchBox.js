@@ -18,7 +18,7 @@ const SearchBox = ({handleSearchClick}) => {
   useEffect(() => {
     const fetchTopCoins = async () => {
         try {
-        const response = await axios.get('https://localhost:8005/api/Crypto/get-sorted-by-price-data');
+        const response = await axios.get('http://localhost:5024/api/Crypto/get-sorted-by-price-data');
         setTopCoins(response.data);
       } catch (error) {
         console.error('Error fetching top coins:', error);
@@ -34,7 +34,7 @@ const SearchBox = ({handleSearchClick}) => {
     // Fetch relevant cryptocurrencies based on the search term
     const fetchSearchResults = async () => {
         try {
-            const response = await axios.get(`https://localhost:8005/api/Crypto/search-crypto?searchTerm=${searchTerm}`);
+            const response = await axios.get(`http://localhost:5024/api/Crypto/search-crypto?searchTerm=${searchTerm}`);
             setSearchResults(response.data);
           } catch (error) {
             console.error('Error fetching search results:', error);

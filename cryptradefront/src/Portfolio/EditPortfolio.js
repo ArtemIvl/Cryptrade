@@ -10,7 +10,7 @@ function EditPortfolio({portfolio}) {
 
   const handleEditPortfolio = async () => {
       try {
-        await axios.put(`https://localhost:8004/api/portfolio?portfolioId=${portfolio.id}`, { name: name, description: description}, {
+        await axios.put(`http://localhost:5174/api/portfolio?portfolioId=${portfolio.id}`, { name: name, description: description}, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

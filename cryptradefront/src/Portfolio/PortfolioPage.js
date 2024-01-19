@@ -35,7 +35,7 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
 
   const fetchTotalValue = async () => {
     try {
-      const response = await axios.get(`https://localhost:8004/api/Portfolio/total-value?portfolioId=${localStorage.getItem('portfolioId')}`);
+      const response = await axios.get(`http://localhost:5174/api/Portfolio/total-value?portfolioId=${localStorage.getItem('portfolioId')}`);
       setPortfolioData(response.data);
       console.log('Portfolio Data', response.data)
     } catch (error) {
@@ -45,7 +45,7 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
 
   const fetchPortfolioData = async () => {
     try {
-      const response = await axios.get(`https://localhost:8004/api/portfolio`, {
+      const response = await axios.get(`http://localhost:5174/api/portfolio`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -65,7 +65,7 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
 
     try {
       const response = await axios.post(
-        `https://localhost:8004/api/portfolio`,
+        `http://localhost:5174/api/portfolio`,
         {
           name: portfolioName,
           description: portfolioDescription,
@@ -90,12 +90,12 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
   const handleDeletePortfolio = async (e) => {
     e.preventDefault();
     try {
-      await axios.delete(`https://localhost:8004/api/portfolio?portfolioId=${existingPortfolio.id}`, {
+      await axios.delete(`http://localhost:5174/api/portfolio?portfolioId=${existingPortfolio.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      await axios.delete(`https://localhost:8006/api/transaction/byportfolio?portfolioId=${existingPortfolio.id}`);
+      await axios.delete(`http://localhost:5102/api/transaction/byportfolio?portfolioId=${existingPortfolio.id}`);
       alert('Account deleted successfully!');
       setExistingPortfolio({});
       localStorage.removeItem('portfolioId');
@@ -111,7 +111,7 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
 
   const getAllAssets = async () => {
     try {
-      const response = await axios.get(`https://localhost:8006/api/Transaction/assets?portfolioId=${localStorage.getItem('portfolioId')}`);
+      const response = await axios.get(`http://localhost:5102/api/Transaction/assets?portfolioId=${localStorage.getItem('portfolioId')}`);
       setAssets(response.data);
       fetchTotalValue();
   } catch (error) {
@@ -121,12 +121,12 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
     
   const handleDeleteTransaction = async (transaction) => {
     try {
-      await axios.delete(`https://localhost:8006/api/transaction?transactionid=${transaction.id}`);
+      await axios.delete(`http://localhost:5102/api/transaction?transactionid=${transaction.id}`);
       alert('Transaction deleted successfully!');
       
       // Fetch updated list of transactions after deletion
-    const updatedTransactions = await axios.get(`https://localhost:8006/api/transaction/trans-asset?portfolioid=${localStorage.getItem('portfolioId')}&assetname=${transaction.cryptoName}`);
-    const updatedAssets = await axios.get(`https://localhost:8006/api/Transaction/assets?portfolioId=${localStorage.getItem('portfolioId')}`);
+    const updatedTransactions = await axios.get(`http://localhost:5102/api/transaction/trans-asset?portfolioid=${localStorage.getItem('portfolioId')}&assetname=${transaction.cryptoName}`);
+    const updatedAssets = await axios.get(`http://localhost:5102/api/Transaction/assets?portfolioId=${localStorage.getItem('portfolioId')}`);
       
     setAssets(updatedAssets.data);
     setTransactions(updatedTransactions.data);
@@ -138,7 +138,7 @@ function PortfolioPage({ isLoggedIn, handleAddTransaction }) {
 
   const handleGetTransactions = async (asset) => {
     try {
-      const response = await axios.get(`https://localhost:8006/api/transaction/trans-asset?portfolioid=${localStorage.getItem('portfolioId')}&assetname=${asset.cryptoName}`);
+      const response = await axios.get(`http://localhost:5102/api/transaction/trans-asset?portfolioid=${localStorage.getItem('portfolioId')}&assetname=${asset.cryptoName}`);
       setTransactions(response.data);
       setShowTransactions(true); // Show transactions
     } catch (error) {

@@ -6,8 +6,8 @@ using PortfolioManagement.Models;
 
 namespace PortfolioManagement.Services
 {
-	public class PortfolioService
-	{
+    public class PortfolioService
+    {
         private readonly PortfolioDbContext _context;
         private readonly RabbitMQConsumer _rabbitMQConsumer;
         private Dictionary<int, double> _portfolioTotalValues = new Dictionary<int, double>();
@@ -99,6 +99,5 @@ namespace PortfolioManagement.Services
                 _context.SaveChanges();
             }
         }
-        }
+    }
 }
-

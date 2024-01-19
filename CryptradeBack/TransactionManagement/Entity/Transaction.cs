@@ -20,9 +20,6 @@ namespace TransactionManagement.Entity
         [Column("cryptoSymbol")]
         public string cryptoSymbol { get; set; }
 
-        [Column("type")]
-        public string type { get; set; }
-
         [Column("price")]
         public double price { get; set; }
 

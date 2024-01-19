@@ -17,5 +17,6 @@ RUN dotnet publish "TradingManagement.csproj" -c Release -o /app/publish /p:UseA
 FROM base AS final
 WORKDIR /app
 EXPOSE 443
+EXPOSE 80
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "TradingManagement.dll"]

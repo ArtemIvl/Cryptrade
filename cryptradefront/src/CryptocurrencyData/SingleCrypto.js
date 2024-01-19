@@ -9,7 +9,7 @@ function SingleCrypto() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`https://localhost:8005/api/Crypto/${symbol}`)
+    axios.get(`http://localhost:5024/api/Crypto/${symbol}`)
       .then(response => {
         setCrypto(response.data);
       })

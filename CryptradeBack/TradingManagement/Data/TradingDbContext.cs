@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
-using TransactionManagement.Entity;
+using TradingManagement.Entity;
 
-namespace TransactionManagement.Data
+namespace TradingManagement.Data
 {
-	public class TransactionDbContext : DbContext
-	{
-        //public TransactionDbContext(DbContextOptions<TransactionDbContext> options) : base(options)
+    public class TradingDbContext : DbContext
+    {
+        //public TradingDbContext(DbContextOptions<TradingDbContext> options) : base(options)
         //{
         //    try
         //    {
@@ -26,12 +27,12 @@ namespace TransactionManagement.Data
         //    }
         //}
 
-        public TransactionDbContext( DbContextOptions<TransactionDbContext> options) : base (options)
+        public TradingDbContext(DbContextOptions<TradingDbContext> options) : base(options)
         {
 
         }
 
-        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }
 

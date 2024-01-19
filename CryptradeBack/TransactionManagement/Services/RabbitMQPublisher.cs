@@ -36,11 +36,13 @@ namespace TransactionManagement.Services
 
         public void PublishMessage(double totalValue, double profitLoss, int portfolioId, Performer bestPerformer, Performer worstPerformer)
         {
+            Console.WriteLine("start publish");
             // Dynamically generate a unique queue name based on the portfolio ID
             var queueName = $"{_configuration["RabbitMQPublish:QueueName"]}_{portfolioId}";
 
             // Declare the Queue (if not already declared)
-            _channel.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+            _channel.QueueDeclare(queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+            _channel.QueueBind(queueName, _configuration["RabbitMQ:ExchangeName"], "");
 
             var message = new
             {
@@ -57,8 +59,9 @@ namespace TransactionManagement.Services
             // Convert the message to bytes
             var body = Encoding.UTF8.GetBytes(messageJson);
 
-            // Publish to the specific queue
-            _channel.BasicPublish(exchange: _configuration["RabbitMQPublish:ExchangeName"], routingKey: queueName, basicProperties: null, body: body);
+            // Publish to the specific 
+            _channel.BasicPublish(exchange: _configuration["RabbitMQPublish:ExchangeName"], "", basicProperties: null, body: body);
+            Console.WriteLine("Publish should work already");
         }
 
         public void Dispose()

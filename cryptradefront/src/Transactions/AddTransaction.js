@@ -4,7 +4,6 @@ import axios from 'axios';
 
 const AddTransaction = ({handleAddTransaction}) => {
 
-  const [formType, setFormType] = useState('buy');
   const [cryptoList, setCryptoList] = useState([]);
   const [selectedCrypto, setSelectedCrypto] = useState(null);
   const [quantity, setQuantity] = useState();
@@ -13,7 +12,7 @@ const AddTransaction = ({handleAddTransaction}) => {
   const [date, setDate] = useState();
 
   useEffect(() => {
-        axios.get('https://localhost:8005/api/Crypto')
+        axios.get('http://localhost:5024/api/Crypto')
           .then(response => {
             setCryptoList(response.data);
           })
@@ -24,7 +23,7 @@ const AddTransaction = ({handleAddTransaction}) => {
 
     const handleCryptoSelect = (crypto) => {
         // Fetch the price of the selected cryptocurrency
-        axios.get(`https://localhost:8005/api/Crypto/${crypto}`)
+        axios.get(`http://localhost:5024/api/Crypto/${crypto}`)
           .then(response => {
             setSelectedCrypto(response.data);
             setPricePerCoin(response.data.price); // Assuming the API response has a 'price' field
@@ -52,12 +51,11 @@ const AddTransaction = ({handleAddTransaction}) => {
         e.preventDefault();
     
         try {
-          const response = await axios.post(`https://localhost:8006/api/transaction`, 
+          const response = await axios.post(`http://localhost:5102/api/transaction`, 
           {
             createdAt: date,
             cryptoName: selectedCrypto.name,
             cryptoSymbol: selectedCrypto.symbol,
-            type: formType,
             price: pricePerCoin,
             amount: quantity,
             portfolioId: localStorage.getItem('portfolioId'),
@@ -77,10 +75,10 @@ const AddTransaction = ({handleAddTransaction}) => {
             <div className='text-container'>
                 Add Transaction
             </div>
-            <div className='type-container'>
+            {/* <div className='type-container'>
             <label className={formType === 'buy' ? 'login-text active' : 'login-text'} onClick={() => setFormType('buy')}>Buy</label>
             <label className={formType === 'sell' ? 'login-text active' : 'login-text'} onClick={() => setFormType('sell')}>Sell</label>
-            </div>
+            </div> */}
             <div className='select-coin-container'>
             <label>Select a cryptocurrency</label>
             <div className='custom-select'>

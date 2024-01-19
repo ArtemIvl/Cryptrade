@@ -6,36 +6,37 @@ using TransactionManagement.Models;
 
 namespace TransactionManagement.Services
 {
-	public class TransactionService
-	{
+    public class TransactionService
+    {
         private readonly RabbitMQPublisher _rabbitMQPublisher;
         private readonly TransactionDbContext _context;
-		private readonly CryptocurrencyService _cryptocurrencyService;
+        private readonly CryptocurrencyService _cryptocurrencyService;
 
-		public TransactionService(TransactionDbContext context, CryptocurrencyService cryptocurrencyService, RabbitMQPublisher rabbitMQPublisher)
-		{
-			_context = context;
-			_cryptocurrencyService = cryptocurrencyService;
+        public TransactionService(TransactionDbContext context, CryptocurrencyService cryptocurrencyService, RabbitMQPublisher rabbitMQPublisher)
+        {
+            _context = context;
+            _cryptocurrencyService = cryptocurrencyService;
             _rabbitMQPublisher = rabbitMQPublisher;
-		}
+        }
 
         public void AddTransaction(Transaction model)
         {
-			_context.Transactions.Add(model);
-			_context.SaveChanges();
-		}
+            _context.Transactions.Add(model);
+            _context.SaveChanges();
+        }
 
-		public async Task<List<Transaction>> GetTransactionsByPortfolioId(int portfolioId)
-		{
-			var transactions = await _context.Transactions.Where(t => t.portfolioId == portfolioId).ToListAsync();
-			if (transactions != null)
-			{
-				return transactions;
-			} else
-			{
-				return null;
-			}
-		}
+        public async Task<List<Transaction>> GetTransactionsByPortfolioId(int portfolioId)
+        {
+            var transactions = await _context.Transactions.Where(t => t.portfolioId == portfolioId).ToListAsync();
+            if (transactions != null)
+            {
+                return transactions;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         public async Task<List<Asset>> GetAssetsByPortfolioId(int portfolioId)
         {
@@ -94,7 +95,8 @@ namespace TransactionManagement.Services
 
                 // Calculate the average buy price for each asset
                 assets.ForEach(asset => asset.avgBuyPrice = asset.avgBuyPrice / asset.numOfTransactions);
-            } else
+            }
+            else
             {
                 return null;
             }
@@ -131,9 +133,9 @@ namespace TransactionManagement.Services
                     };
                 }
             }
-
+            Console.WriteLine("start publish");
             _rabbitMQPublisher.PublishMessage(totalvalue, profitloss, portfolioId, bestPerformer, worstPerformer);
-            
+
             return assets;
         }
 
@@ -152,29 +154,30 @@ namespace TransactionManagement.Services
         }
 
         public void UpdateTransaction(TransactionDataModel model, int transactionid)
-		{
+        {
             var transaction = _context.Transactions.Find(transactionid);
 
             if (transaction != null)
             {
-				transaction.createdAt = model.createdAt;
-				transaction.amount = model.amount;
-				transaction.price = model.price;
-				_context.SaveChanges();
+                transaction.createdAt = model.createdAt;
+                transaction.amount = model.amount;
+                transaction.price = model.price;
+                _context.SaveChanges();
             }
         }
 
         public void DeleteTransaction(int id)
         {
-			var transaction = _context.Transactions.FirstOrDefault(t => t.id == id);
+            var transaction = _context.Transactions.FirstOrDefault(t => t.id == id);
             if (transaction != null)
-			{
+            {
                 _context.Transactions.Remove(transaction);
                 _context.SaveChanges();
-            } else
-			{
-				throw new Exception("Transaciton not found");
-			}
+            }
+            else
+            {
+                throw new Exception("Transaciton not found");
+            }
         }
 
         public void DeleteTransactionsByPortfolioId(int portfolioId)
@@ -193,4 +196,3 @@ namespace TransactionManagement.Services
         }
     }
 }
-
