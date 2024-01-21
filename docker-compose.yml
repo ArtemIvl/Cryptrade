@@ -5,156 +5,53 @@ networks:
   frontend:
 
 services:
-  userdb:
-    container_name: userdb
-    image: mysql:8.2.0-oracle
-    environment:
-      - MYSQL_ROOT_PASSWORD=096-9503012
-    networks:
-      - backend
-    ports:
-      - 18001:3306
-
-  portfoliodb:
-    container_name: portfoliodb
-    image: mysql:8.2.0-oracle
-    environment:
-      - MYSQL_ROOT_PASSWORD=096-9503012
-    networks:
-      - backend
-    ports:
-      - 18002:3306
-
-  cryptodatacache:
-    container_name: cryptodatacache
-    image: mysql:8.2.0-oracle
-    environment:
-      - MYSQL_ROOT_PASSWORD=096-9503012
-    networks:
-      - backend
-    ports:
-      - 18003:3306
-
-  transactiondb:
-    container_name: transactiondb
-    image: mysql:8.2.0-oracle
-    environment:
-      - MYSQL_ROOT_PASSWORD=096-9503012
-    networks:
-      - backend
-    ports:
-      - 18004:3306
-
-  orderdb:
-    container_name: orderdb
-    image: mysql:8.2.0-oracle
-    environment:
-      - MYSQL_ROOT_PASSWORD=096-9503012
-    networks:
-      - backend
-    ports:
-      - 18005:3306
-
   usermanagement:
     container_name: usermanagement
-    image: ${DOCKER_REGISTRY-}usermanagement
+    image: artemivl/usermanagement:3.0.0
     build:
       context: ./CryptradeBack
       dockerfile: UserManagement/Dockerfile
     networks:
       - backend
       - frontend
-    environment:
-      - DB_HOST=userdb
-      - DB_NAME=userdb
-      - DB_ROOT_PASSWORD=096-9503012
     ports:
       - 8003:443
 
   portfoliomanagement:
     container_name: portfoliomanagement
-    image: ${DOCKER_REGISTRY-}portfoliomanagement
+    image: artemivl/portfoliomanagement:3.0.0
     build:
       context: ./CryptradeBack
       dockerfile: PortfolioManagement/Dockerfile
     networks:
       - backend
       - frontend
-    environment:
-      - DB_HOST=portfoliodb
-      - DB_NAME=portfoliodb
-      - DB_ROOT_PASSWORD=096-9503012
     ports:
       - 8004:443
 
   cryptocurrencydata:
     container_name: cryptocurrencydata
-    image: ${DOCKER_REGISTRY-}cryptocurrencydata
+    image: artemivl/cryptocurrencydata:3.0.0
     build:
       context: ./CryptradeBack
       dockerfile: CryptocurrencyData/Dockerfile
     networks:
       - backend
       - frontend
-    environment:
-      - DB_HOST=cryptodatacache
-      - DB_NAME=cryptodatacache
-      - DB_ROOT_PASSWORD=096-9503012
     ports:
       - 8005:443
 
   transactionmanagement:
     container_name: transactionmanagement
-    image: ${DOCKER_REGISTRY-}transactionmanagement
+    image: artemivl/transactionmanagement:3.0.0
     build:
       context: ./CryptradeBack
       dockerfile: TransactionManagement/Dockerfile
     networks:
       - backend
       - frontend
-    environment:
-      - DB_HOST=transactiondb
-      - DB_NAME=transactiondb
-      - DB_ROOT_PASSWORD=096-9503012
     ports:
       - 8006:443
-
-  # tradingmanagement:
-  #   container_name: tradingmanagement
-  #   image: ${DOCKER_REGISTRY-}tradingmanagement
-  #   build:
-  #     context: ./CryptradeBack
-  #     dockerfile: TradingManagement/Dockerfile
-  #   networks:
-  #     - backend
-  #     - frontend
-  #   environment:
-  #     - DB_HOST=orderdb
-  #     - DB_NAME=orderdb
-  #     - DB_ROOT_PASSWORD=096-9503012
-  #   ports:
-  #     - 8008:443
-
-  # simulatedtrading:
-  #   container_name: simulatedtrading
-  #   image: ${DOCKER_REGISTRY-}simulatedtrading
-  #   build:
-  #     context: ./CryptradeBack
-  #     dockerfile: SimulatedTrading/Dockerfile
-  #   ports:
-  #     - 8007:443
-
-  apigateway:
-    container_name: apigateway
-    image: ${DOCKER_REGISTRY-}apigateway
-    build:
-      context: ./CryptradeBack
-      dockerfile: ApiGateway/Dockerfile
-    networks:
-      - backend
-      - frontend
-    ports:
-      - 8001:443
   
   rabbitmq:
     container_name: rabbitmq
@@ -168,7 +65,7 @@ services:
 
   cryptradefront:
     container_name: cryptradefront
-    image: ${DOCKER_REGISTRY-}cryptradefront
+    image: artemivl/cryptradefront:3.0.0
     build:
       context: ./cryptradefront
       dockerfile: Dockerfile

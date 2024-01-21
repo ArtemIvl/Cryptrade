@@ -1,5 +1,4 @@
-﻿using JwtAuthenticationManager;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PortfolioManagement.Data;
 using PortfolioManagement.Services;
 
@@ -12,7 +11,6 @@ builder.Services.AddScoped<PortfolioService>();
 builder.Services.AddScoped<RabbitMQConsumer>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCustomJwtAuthentication();
 
 builder.Configuration.AddJsonFile("appsettings.json");
 

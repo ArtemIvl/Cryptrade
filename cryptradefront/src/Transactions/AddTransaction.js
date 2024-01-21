@@ -12,7 +12,7 @@ const AddTransaction = ({handleAddTransaction}) => {
   const [date, setDate] = useState();
 
   useEffect(() => {
-        axios.get('http://localhost:5024/api/Crypto')
+        axios.get('https://localhost:8005/api/Crypto')
           .then(response => {
             setCryptoList(response.data);
           })
@@ -23,7 +23,7 @@ const AddTransaction = ({handleAddTransaction}) => {
 
     const handleCryptoSelect = (crypto) => {
         // Fetch the price of the selected cryptocurrency
-        axios.get(`http://localhost:5024/api/Crypto/${crypto}`)
+        axios.get(`https://localhost:8005/api/Crypto/${crypto}`)
           .then(response => {
             setSelectedCrypto(response.data);
             setPricePerCoin(response.data.price); // Assuming the API response has a 'price' field
@@ -51,7 +51,7 @@ const AddTransaction = ({handleAddTransaction}) => {
         e.preventDefault();
     
         try {
-          const response = await axios.post(`http://localhost:5102/api/transaction`, 
+          const response = await axios.post(`https://localhost:8006/api/transaction`, 
           {
             createdAt: date,
             cryptoName: selectedCrypto.name,

@@ -19,7 +19,6 @@ namespace PortfolioManagement.Controllers
 		}
 
         [HttpGet]
-        [Authorize]
         public IActionResult GetPortfolioById()
         {
             try
@@ -42,7 +41,6 @@ namespace PortfolioManagement.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult CreatePortfolio([FromBody] PortfolioDataModel model)
         {
             try
@@ -58,7 +56,6 @@ namespace PortfolioManagement.Controllers
         }
 
         [HttpPut]
-        [Authorize]
         public IActionResult UpdatePortfolio(int portfolioId, [FromBody] PortfolioDataModel model)
         {
             try
@@ -73,7 +70,6 @@ namespace PortfolioManagement.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
         public IActionResult DeletePortfolio(int portfolioId)
         {
             try

@@ -1,4 +1,4 @@
-﻿// using JwtAuthenticationManager;
+﻿using ApiGateway;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -8,23 +8,22 @@ builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
     .AddEnvironmentVariables();
 
 builder.Services.AddOcelot(builder.Configuration);
-// builder.Services.AddCustomJwtAuthentication();
+builder.Services.AddScoped<JwtTokenHandler>();
+builder.Services.AddCustomJwtAuthentication();
 
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost8000",
+    options.AddPolicy("AllowLocalhosts",
         builder => builder
-            .WithOrigins("http://localhost:8000")
+            .WithOrigins("http://localhost:3000", "http://localhost:8002")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
 
 var app = builder.Build();
+app.UseCors("AllowLocalhosts");
 await app.UseOcelot();
-
-// Use CORS
-app.UseCors("AllowLocalhost8000");
 
 app.UseAuthentication();
 app.UseAuthorization();

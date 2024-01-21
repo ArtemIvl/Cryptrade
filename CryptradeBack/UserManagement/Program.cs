@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UserManagement;
 using UserManagement.Data;
-using JwtAuthenticationManager;
 using UserManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);

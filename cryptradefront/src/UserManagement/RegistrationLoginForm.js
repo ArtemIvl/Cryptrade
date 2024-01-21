@@ -20,7 +20,7 @@ const RegistrationLoginForm = ({handleLoginClick, setIsLoggedIn}) => {
 
     // Make an API request to your ASP.NET Core microservice to register the user
     try {
-      const response = await axios.post('http://localhost:5162/api/user/register', {
+      const response = await axios.post('https://localhost:8003/api/user/register', {
         name,
         email,
         password,
@@ -42,7 +42,7 @@ const RegistrationLoginForm = ({handleLoginClick, setIsLoggedIn}) => {
 
     // Make an API request to your ASP.NET Core microservice to register the user
     try {
-      const response = await axios.post('http://localhost:5162/api/user/login', {
+      const response = await axios.post('https://localhost:8003/api/user/login', {
         email: loginEmail,
         password: loginPassword,
       });

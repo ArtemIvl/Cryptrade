@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.32.0 (HEAD)
+  labels:
+    io.kompose.service: cryptradefront
+  name: cryptradefront
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cryptradefront
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.32.0 (HEAD)
+      labels:
+        io.kompose.network/cryptrade-frontend: "true"
+        io.kompose.service: cryptradefront
+    spec:
+      containers:
+        - image: artemivl/cryptradefront:3.0.0
+          name: cryptradefront
+          ports:
+            - containerPort: 3000
+              hostPort: 8002
+              protocol: TCP
+      restartPolicy: Always

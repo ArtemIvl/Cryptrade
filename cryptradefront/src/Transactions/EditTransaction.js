@@ -13,7 +13,7 @@ function EditTransaction({transaction}) {
 
     const handleEditTransaction = async () => {
         try {
-          await axios.put(`http://localhost:5102/api/Transaction?transactionid=${transaction.id}`, { amount: amount, price: price, createdAt: createdAt, cryptoName: transaction.cryptoName, cryptoSymbol: transaction.cryptoSymbol});
+          await axios.put(`https://localhost:8006/api/Transaction?transactionid=${transaction.id}`, { amount: amount, price: price, createdAt: createdAt, cryptoName: transaction.cryptoName, cryptoSymbol: transaction.cryptoSymbol});
           alert('Transaction edited successfully!');
           window.location.reload(false);
         } catch (error) {

@@ -1,58 +1,151 @@
 ﻿{
   "Routes": [
+    // usermanagement
     {
-      "DownstreamPathTemplate": "/api/user/{everything}",
-      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/user",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 8003
+          "Port": 5162
         }
       ],
+      "DownstreamPathTemplate": "/api/user",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
       "UpstreamPathTemplate": "/api/user/{everything}",
-      "UpstreamHttpMethod": [ "All" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/portfolio/{everything}",
-      "DownstreamScheme": "https",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 8004
+          "Port": 5162
         }
       ],
-      "UpstreamPathTemplate": "/api/portfolio/{everything}",
-      "UpstreamHttpMethod": [ "All" ]
+      "DownstreamPathTemplate": "/api/user/{everything}"
     },
+    // cryptocurrencydata
     {
-      "DownstreamPathTemplate": "/api/crypto/{everything}",
-      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/api/crypto",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 8005
+          "Port": 5024
         }
       ],
+      "DownstreamPathTemplate": "/api/crypto"
+    },
+    {
       "UpstreamPathTemplate": "/api/crypto/{everything}",
-      "UpstreamHttpMethod": [ "All" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/transaction/{everything}",
-      "DownstreamScheme": "https",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 8006
+          "Port": 5024
         }
       ],
+      "DownstreamPathTemplate": "/api/crypto/{everything}"
+    },
+    // portfoliomanagement
+    {
+      "UpstreamPathTemplate": "/api/portfolio",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5174
+        }
+      ],
+      "DownstreamPathTemplate": "/api/portfolio",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/portfolio/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5174
+        }
+      ],
+      "DownstreamPathTemplate": "/api/portfolio/{everything}"
+    },
+    // transactionmanagement
+    {
+      "UpstreamPathTemplate": "/api/transaction",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5102
+        }
+      ],
+      "DownstreamPathTemplate": "/api/transaction"
+    },
+    {
       "UpstreamPathTemplate": "/api/transaction/{everything}",
-      "UpstreamHttpMethod": [ "All" ]
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5102
+        }
+      ],
+      "DownstreamPathTemplate": "/api/transaction/{everything}"
+    },
+    // tradingmanagement
+    {
+      "UpstreamPathTemplate": "/api/trading",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5111
+        }
+      ],
+      "DownstreamPathTemplate": "/api/trading"
+    },
+    {
+      "UpstreamPathTemplate": "/api/trading/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5111
+        }
+      ],
+      "DownstreamPathTemplate": "/api/trading/{everything}"
     }
-    // Add more routes for other microservices
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:8001",
-    "RequestIdKey": "OcRequestId",
-    "AdministrationPath": "/administration"
+    "BaseUrl": "http://localhost:5101"
   }
 }
+

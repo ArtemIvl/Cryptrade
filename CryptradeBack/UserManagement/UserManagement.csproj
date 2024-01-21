@@ -42,9 +42,4 @@
     <Folder Include="Services\" />
     <Folder Include="Utility\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\JwtAuthenticationManager\JwtAuthenticationManager.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

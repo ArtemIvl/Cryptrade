@@ -28,6 +28,7 @@ function App() {
 
   const handleLogoutClick = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('portfolioId');
     setIsLoggedIn(false);
   };
 
