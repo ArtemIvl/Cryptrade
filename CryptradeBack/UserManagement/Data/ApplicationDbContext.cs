@@ -8,22 +8,27 @@ namespace UserManagement.Data
 {
 	public class ApplicationDbContext : DbContext
 	{
-		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base (options)
-		{
-			try
-			{
-				var databaseCreator = Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
-				if (databaseCreator != null)
-				{
-					if (!databaseCreator.CanConnect()) databaseCreator.Create();
+		//public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base (options)
+		//{
+		//	try
+		//	{
+		//		var databaseCreator = Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+		//		if (databaseCreator != null)
+		//		{
+		//			if (!databaseCreator.CanConnect()) databaseCreator.Create();
 
-					if (!databaseCreator.HasTables()) databaseCreator.CreateTables();
-				}
-			}
-			catch (Exception ex)
-			{
-				throw new Exception(ex.ToString());
-			}
+		//			if (!databaseCreator.HasTables()) databaseCreator.CreateTables();
+		//		}
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		throw new Exception(ex.ToString());
+		//	}
+		//}
+
+		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base (options)
+		{
+
 		}
 
 		public DbSet<User> Users { get; set; }

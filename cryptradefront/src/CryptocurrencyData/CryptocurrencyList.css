@@ -8,6 +8,28 @@
   font-weight: 700;
 }
 
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.header-container button {
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #3861FB;
+}
+
+.header-container button:hover {
+cursor: pointer;
+background-color: #3874FB;
+transition: 0.2;
+}
+
 .crypto-list {
     list-style: none;
     padding: 0;
@@ -86,4 +108,36 @@
   .crypto-price-change {
     color: #dc3545;
   }
+  
+  .hoverable {
+    cursor: pointer;
+  }
+
+  .hoverable:hover {
+    color: #3861FB;
+    transition: 0.2s;
+  }
+
+  .single-crypto-container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .back-button {
+    height: 40px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    background-color: #3861FB;
+  }
+
+.back-button:hover {
+  cursor: pointer;
+  background-color: #3874FB;
+  transition: 0.2;
+}
   

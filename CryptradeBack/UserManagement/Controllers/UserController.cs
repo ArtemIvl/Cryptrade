@@ -1,6 +1,4 @@
 ﻿using System.Security.Claims;
-using JwtAuthenticationManager;
-using JwtAuthenticationManager.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UserManagement.Models;
@@ -40,8 +38,8 @@ namespace UserManagement.Controllers
         {
             var userData = await _userService.GetAllUsersAsync();
 
-            List<JwtAuthenticationManager.Entity.User> userDataConverted = userData.Select(user =>
-                new JwtAuthenticationManager.Entity.User
+            List<Entity.User> userDataConverted = userData.Select(user =>
+                new Entity.User
                     {
                         id = user.id,
                         name = user.name,

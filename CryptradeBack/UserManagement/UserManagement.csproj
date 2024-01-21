@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
-    <UserSecretsId>8739ce64-cf09-4d5e-8dfd-70c5a064f9af</UserSecretsId>
+    <UserSecretsId>d56a8f91-997c-4aae-b2d4-09b94dc27e7c</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
@@ -41,10 +41,5 @@
     <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="Utility\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\JwtAuthenticationManager\JwtAuthenticationManager.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
   </ItemGroup>
 </Project>

@@ -19,7 +19,6 @@ namespace PortfolioManagement.Controllers
 		}
 
         [HttpGet]
-        [Authorize]
         public IActionResult GetPortfolioById()
         {
             try
@@ -42,7 +41,6 @@ namespace PortfolioManagement.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult CreatePortfolio([FromBody] PortfolioDataModel model)
         {
             try
@@ -58,7 +56,6 @@ namespace PortfolioManagement.Controllers
         }
 
         [HttpPut]
-        [Authorize]
         public IActionResult UpdatePortfolio(int portfolioId, [FromBody] PortfolioDataModel model)
         {
             try
@@ -73,7 +70,6 @@ namespace PortfolioManagement.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
         public IActionResult DeletePortfolio(int portfolioId)
         {
             try
@@ -85,6 +81,28 @@ namespace PortfolioManagement.Controllers
             catch (Exception ex)
             {
                 return BadRequest($"Failed to delete portfolio: {ex.Message}");
+            }
+        }
+
+        [HttpGet("total-value")]
+        public async Task<IActionResult> GetTotalValue(int portfolioId)
+        {
+            try
+            {
+                var portfolioData = await _portfolioService.GetTotalValue(portfolioId);
+
+                if (portfolioData != null)
+                {
+                    return Ok(portfolioData);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Getting data failed: {ex.Message}");
             }
         }
     }

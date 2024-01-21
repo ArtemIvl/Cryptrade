@@ -1,0 +1,17 @@
+f
+]/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/Controllers/UserController.csutf-8e
+\/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/Data/ApplicationDbContext.csutf-8W
+N/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/Entity/User.csutf-8s
+j/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/Migrations/20231022153643_InitialCreate.csutf-8~
+s/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/Migrations/20231022153643_InitialCreate.Designer.csutf-8z
+o/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/Migrations/ApplicationDbContextModelSnapshot.csutf-8`
+W/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/Models/UserDataModel.csutf-8a
+X/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/Models/UserLoginModel.csutf-8d
+[/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/Models/UserRegisterModel.csutf-8S
+J/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/Program.csutf-8`
+W/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/Services/UserService.csutf-8a
+X/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/Utility/SecurityUtils.csutf-8|
+q/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/obj/Debug/net7.0/UserManagement.GlobalUsings.g.csutf-8Š
+/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/obj/Debug/net7.0/.NETCoreApp,Version=v7.0.AssemblyAttributes.csutf-8z
+o/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/obj/Debug/net7.0/UserManagement.AssemblyInfo.csutf-8Ž
+‚/Users/artemivliev/Artem/Cryptrade/CryptradeBack/UserManagement/obj/Debug/net7.0/UserManagement.MvcApplicationPartsAssemblyInfo.csutf-8

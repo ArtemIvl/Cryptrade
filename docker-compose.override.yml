@@ -1,7 +1,8 @@
 version: '3.4'
 
 services:
-  apigateway:
+  usermanagement:
+    container_name: usermanagement
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -11,7 +12,9 @@ services:
     volumes:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
-  cryptocurrencydata:
+
+  transactionmanagement:
+    container_name: transactionmanagement
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -23,6 +26,7 @@ services:
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
 
   portfoliomanagement:
+    container_name: portfoliomanagement
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -33,7 +37,8 @@ services:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
 
-  usermanagement:
+  cryptocurrencydata:
+    container_name: cryptocurrencydata
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -43,3 +48,4 @@ services:
     volumes:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+

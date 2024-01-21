@@ -11,17 +11,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 // Configuration for database connection
-//builder.Configuration.AddJsonFile("appsettings.json");
+builder.Configuration.AddJsonFile("appsettings.json");
 
-var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
-var dbName = Environment.GetEnvironmentVariable("DB_NAME");
-var dbPassword = Environment.GetEnvironmentVariable("DB_ROOT_PASSWORD");
+//var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+//var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+//var dbPassword = Environment.GetEnvironmentVariable("DB_ROOT_PASSWORD");
 
-var connectionString = $"server={dbHost};port=3306;database={dbName};user=root;password={dbPassword}";
+//var connectionString = $"server={dbHost};port=3306;database={dbName};user=root;password={dbPassword}";
 
 // Configure the DbContext
 builder.Services.AddDbContext<CryptoDbContext>(options =>
-    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 1, 0)))); // Use the correct database provider (UseMySql in this case)
+    options.UseMySql(builder.Configuration.GetConnectionString("MySqlConnection"), new MySqlServerVersion(new Version(8, 1, 0))));
 
 builder.Services.AddAuthentication(
         CertificateAuthenticationDefaults.AuthenticationScheme)
@@ -36,14 +36,16 @@ var config = new ConfigurationBuilder()
     .Build();
 
 builder.Services.AddSingleton<IConfiguration>(config);
+builder.Services.AddScoped<RabbitMQService>();
+builder.Services.AddScoped<CryptoService>();
 builder.Services.AddHttpClient<CryptoService>();
 
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost8002",
+    options.AddPolicy("AllowLocalhosts",
         builder => builder
-            .WithOrigins("http://localhost:8002")
+            .WithOrigins("http://localhost:3000", "http://localhost:8002", "http://localhost:5108")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -51,7 +53,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Use CORS
-app.UseCors("AllowLocalhost8002");
+app.UseCors("AllowLocalhosts");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -69,4 +71,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-

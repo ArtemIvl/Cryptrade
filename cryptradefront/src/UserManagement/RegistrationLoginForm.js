@@ -4,6 +4,8 @@ import axios from 'axios';
 // import { Visibility } from '@mui/icons-material';
 import './RegistrationLoginForm.css';
 
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 const RegistrationLoginForm = ({handleLoginClick, setIsLoggedIn}) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -60,11 +62,11 @@ const RegistrationLoginForm = ({handleLoginClick, setIsLoggedIn}) => {
     }
   };
 
-    // show hide password
-    const [passwordShown, setPasswordShown] = useState(false);
-    const togglePassword = () => {
-      setPasswordShown(!passwordShown);
-    }
+    // // show hide password
+    // const [passwordShown, setPasswordShown] = useState(false);
+    // const togglePassword = () => {
+    //   setPasswordShown(!passwordShown);
+    // }
 
 return (
   <div className='overlay'>

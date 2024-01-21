@@ -20,20 +20,11 @@ namespace TransactionManagement.Entity
         [Column("cryptoSymbol")]
         public string cryptoSymbol { get; set; }
 
-        [Column("type")]
-        public string type { get; set; }
+        [Column("price")]
+        public double price { get; set; }
 
-        [Column("buyPrice")]
-        public double buyPrice { get; set; }
-
-        [Column("buyAmount")]
-        public double buyAmount { get; set; }
-
-        [Column("sellPrice")]
-        public double sellPrice { get; set; }
-
-        [Column("sellAmount")]
-        public double sellAmount { get; set; }
+        [Column("amount")]
+        public double amount { get; set; }
 
         [Column("portfolioId")]
         public int portfolioId { get; set; }

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.32.0 (HEAD)
+  labels:
+    io.kompose.service: usermanagement
+  name: usermanagement
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: usermanagement
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.32.0 (HEAD)
+      labels:
+        io.kompose.network/cryptrade-backend: "true"
+        io.kompose.network/cryptrade-frontend: "true"
+        io.kompose.service: usermanagement
+    spec:
+      containers:
+        - image: artemivl/usermanagement:3.0.0
+          name: usermanagement
+          ports:
+            - containerPort: 443
+              hostPort: 8003
+              protocol: TCP
+      restartPolicy: Always

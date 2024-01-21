@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import './Header.css'
 
@@ -12,7 +12,9 @@ function Header({ handleLoginClick, isLoggedIn, handleLogoutClick, handleSearchC
         <Link to='/cryptocurrency'>
         <span>Cryptocurrencies</span>
         </Link>
+        <Link to='/trading'>
         <span>Mock Trading</span>
+        </Link>
       </div>
       <div className='container-right'>
         <Link to='/portfolio'>

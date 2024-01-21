@@ -6,12 +6,15 @@ using PortfolioManagement.Models;
 
 namespace PortfolioManagement.Services
 {
-	public class PortfolioService
-	{
+    public class PortfolioService
+    {
         private readonly PortfolioDbContext _context;
+        private readonly RabbitMQConsumer _rabbitMQConsumer;
+        private Dictionary<int, double> _portfolioTotalValues = new Dictionary<int, double>();
 
-        public PortfolioService(PortfolioDbContext context)
+        public PortfolioService(PortfolioDbContext context, RabbitMQConsumer rabbitMQConsumer)
         {
+            _rabbitMQConsumer = rabbitMQConsumer;
             _context = context;
         }
 
@@ -62,6 +65,31 @@ namespace PortfolioManagement.Services
             }
         }
 
+        public async Task<TotalValueModel> GetTotalValue(int portfolioId)
+        {
+            try
+            {
+                _rabbitMQConsumer.StartConsuming(portfolioId);
+                var totalValue = await _rabbitMQConsumer.GetTotalValueByPortfolioId(portfolioId);
+                var profitLoss = await _rabbitMQConsumer.GetProfitLossByPortfolioId(portfolioId);
+                var bestPerformer = await _rabbitMQConsumer.GetBestPerformerByPortfolioId(portfolioId);
+                var worstPerformer = await _rabbitMQConsumer.GetWorstPerformerByPortfolioId(portfolioId);
+                var portfolioData = new TotalValueModel
+                {
+                    totalValue = totalValue,
+                    profitLoss = profitLoss,
+                    bestPerformer = bestPerformer,
+                    worstPerformer = worstPerformer,
+                    portfolioId = portfolioId,
+                };
+                return portfolioData;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void DeletePortfolio(int portfolioId, int userId)
         {
             var portfolio = _context.Portfolios.FirstOrDefault(p => p.id == portfolioId && p.userId == userId);
@@ -71,6 +99,5 @@ namespace PortfolioManagement.Services
                 _context.SaveChanges();
             }
         }
-        }
+    }
 }
-
