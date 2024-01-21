@@ -1,0 +1,41 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v1
+      with:
+        version: 'latest'
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+
+    - name: Configure Docker CLI
+      run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+
+    - name: Deploy Frontend
+      run: kubectl apply -f ./cyptradefront-deployment.yaml
+
+    - name: Deploy RabbitMQ
+      run: kubectl apply -f ./rabbitmq-deployment.yaml
+
+    - name: Deploy UserManagement
+      run: kubectl apply -f ./usermanagement-deployment.yaml
+
+    - name: Deploy CryptocurrencyData
+      run: kubectl apply -f ./cryptocurrencydata-deployment.yaml
+
+    - name: Deploy PortfolioManagement
+      run: kubectl apply -f ./portfoliomanagement-deployment.yaml
+
+    - name: Deploy TransactionManagement
+      run: kubectl apply -f ./transactionmanagement-deployment.yaml
