@@ -6,7 +6,6 @@ function TradingPage({ isLoggedIn }) {
   const [selectedCrypto, setSelectedCrypto] = useState('');
   const [ordersList, setOrdersList] = useState([]);
   const [cryptoList, setCryptoList] = useState([]);
-  const [historyList, setHistoryList] = useState([]);
   const [pricePerCoin, setPricePerCoin] = useState();
   const [useMarketPrice, setUseMarketPrice] = useState(false);
   const [openPrice, setOpenPrice] = useState('');
@@ -46,15 +45,15 @@ function TradingPage({ isLoggedIn }) {
     }
   }, [selectedCrypto]);
 
-  useEffect(() => {
-    axios.get('http://localhost:5024/api/Trading/history')
-      .then(response => {
-        setHistoryList(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('http://localhost:5024/api/Trading/history')
+  //     .then(response => {
+  //       setHistoryList(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching data:', error);
+  //     });
+  // }, []);
 
   const handleCryptoSelect = (cryptoSymbol) => {
     const selectedCrypto = cryptoList.find(crypto => crypto.symbol === cryptoSymbol);
@@ -126,24 +125,24 @@ function TradingPage({ isLoggedIn }) {
     }
   };
 
-  const closeOrder = async (order) => {
+  // const closeOrder = async (order) => {
 
-    try {
-      await axios.put('http://localhost:5111/api/trading/close', {
-        cryptoName: order.name,
-        cryptoSymbol: order.symbol,
-        openPrice: order.openPrice,
-        closePrice: order,
-        amount: order.amount,
-        type: order.type,
-        isOpen: order.isOpen,
-        finished: true,
-      });
-    } catch (error) {
-      console.error('Trade closing error', error);
-      alert(`Closing unsuccessful ${error}`);
-    }
-  }
+  //   try {
+  //     await axios.put('http://localhost:5111/api/trading/close', {
+  //       cryptoName: order.name,
+  //       cryptoSymbol: order.symbol,
+  //       openPrice: order.openPrice,
+  //       closePrice: order,
+  //       amount: order.amount,
+  //       type: order.type,
+  //       isOpen: order.isOpen,
+  //       finished: true,
+  //     });
+  //   } catch (error) {
+  //     console.error('Trade closing error', error);
+  //     alert(`Closing unsuccessful ${error}`);
+  //   }
+  // }
 
   const validateLongTrade = () => {
     if (closePrice <= openPrice) {
