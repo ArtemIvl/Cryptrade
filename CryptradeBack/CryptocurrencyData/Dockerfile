@@ -9,8 +9,8 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["CryptocurrencyData/CryptocurrencyData.csproj", "CryptocurrencyData/"]
 RUN dotnet restore "CryptocurrencyData/CryptocurrencyData.csproj"
-WORKDIR "/src/CryptocurrencyData"
 COPY . .
+WORKDIR "/src/CryptocurrencyData"
 RUN dotnet build "CryptocurrencyData.csproj" -c Release -o /app/build
 
 FROM build AS publish

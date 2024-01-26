@@ -9,8 +9,8 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["UserManagement/UserManagement.csproj", "UserManagement/"]
 RUN dotnet restore "UserManagement/UserManagement.csproj"
-WORKDIR "/src/UserManagement"
 COPY . .
+WORKDIR "/src/UserManagement"
 RUN dotnet build "UserManagement.csproj" -c Release -o /app/build
 
 FROM build AS publish
