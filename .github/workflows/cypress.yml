@@ -20,7 +20,7 @@ jobs:
         with:
           working-directory: ./cryptradefront
           build: npm run build
-          start: npm run dev
+          start: npm run start
           record: true
           browser: chrome
         env:
