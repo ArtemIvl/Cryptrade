@@ -22,7 +22,7 @@ function Header({ handleLoginClick, isLoggedIn, handleLogoutClick, handleSearchC
         </Link>
         <button className='search-bar' onClick={handleSearchClick}>Search...</button>
         {isLoggedIn ? <Link to='/profile'><span>Profile</span></Link> : null}
-        {isLoggedIn ? <span onClick={handleLogoutClick}>Sign Out</span> : <span onClick={handleLoginClick}>Sign in</span>}
+        {isLoggedIn ? <span onClick={handleLogoutClick}>Sign Out</span> : <span className="sign-in" onClick={handleLoginClick}>Sign in</span>}
       </div>
     </div>
     </>

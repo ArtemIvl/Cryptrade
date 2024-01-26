@@ -94,7 +94,7 @@ function ProfilePage({isLoggedIn}) {
       <div className='content-container'>
       <label for='name'>Name</label>
         <span>
-      <input value={newName} onChange={(e) => setNewName(e.target.value)}/>
+      <input for="name" value={newName} onChange={(e) => setNewName(e.target.value)}/>
       <button className="action-button" onClick={handleNameChange}>Change Name</button>
       </span>
       <label for='email'>Email Address</label>

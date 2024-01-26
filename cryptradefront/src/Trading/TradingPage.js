@@ -45,15 +45,15 @@ function TradingPage({ isLoggedIn }) {
     }
   }, [selectedCrypto]);
 
-  useEffect(() => {
-    axios.get('http://localhost:5024/api/Trading/history')
-      .then(response => {
-        setHistoryList(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('http://localhost:5024/api/Trading/history')
+  //     .then(response => {
+  //       setHistoryList(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching data:', error);
+  //     });
+  // }, []);
 
   const handleCryptoSelect = (cryptoSymbol) => {
     const selectedCrypto = cryptoList.find(crypto => crypto.symbol === cryptoSymbol);
