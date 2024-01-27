@@ -5,13 +5,13 @@ metadata:
     kompose.cmd: kompose convert -f docker-compose.yml
     kompose.version: 1.32.0 (HEAD)
   labels:
-    io.kompose.service: transactionmanagement
-  name: transactionmanagement
+    io.kompose.service: cryptocurrencydata
+  name: cryptocurrencydata
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: transactionmanagement
+      io.kompose.service: cryptocurrencydata
   template:
     metadata:
       annotations:
@@ -20,13 +20,13 @@ spec:
       labels:
         io.kompose.network/cryptrade-backend: "true"
         io.kompose.network/cryptrade-frontend: "true"
-        io.kompose.service: transactionmanagement
+        io.kompose.service: cryptocurrencydata
     spec:
       containers:
-        - image: artemivl/transactionmanagement:3.0.0
-          name: transactionmanagement
+        - image: artemivl/cryptocurrencydata:latest
+          name: cryptocurrencydata
           ports:
             - containerPort: 443
-              hostPort: 8006
+              hostPort: 8005
               protocol: TCP
       restartPolicy: Always

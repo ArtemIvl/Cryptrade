@@ -5,13 +5,13 @@ metadata:
     kompose.cmd: kompose convert -f docker-compose.yml
     kompose.version: 1.32.0 (HEAD)
   labels:
-    io.kompose.service: usermanagement
-  name: usermanagement
+    io.kompose.service: portfoliomanagement
+  name: portfoliomanagement
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: usermanagement
+      io.kompose.service: portfoliomanagement
   template:
     metadata:
       annotations:
@@ -20,13 +20,13 @@ spec:
       labels:
         io.kompose.network/cryptrade-backend: "true"
         io.kompose.network/cryptrade-frontend: "true"
-        io.kompose.service: usermanagement
+        io.kompose.service: portfoliomanagement
     spec:
       containers:
-        - image: artemivl/usermanagement:3.0.0
-          name: usermanagement
+        - image: artemivl/portfoliomanagement:latest
+          name: portfoliomanagement
           ports:
             - containerPort: 443
-              hostPort: 8003
+              hostPort: 8004
               protocol: TCP
       restartPolicy: Always

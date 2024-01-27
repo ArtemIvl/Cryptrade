@@ -5,27 +5,28 @@ metadata:
     kompose.cmd: kompose convert -f docker-compose.yml
     kompose.version: 1.32.0 (HEAD)
   labels:
-    io.kompose.service: cryptradefront
-  name: cryptradefront
+    io.kompose.service: usermanagement
+  name: usermanagement
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: cryptradefront
+      io.kompose.service: usermanagement
   template:
     metadata:
       annotations:
         kompose.cmd: kompose convert -f docker-compose.yml
         kompose.version: 1.32.0 (HEAD)
       labels:
+        io.kompose.network/cryptrade-backend: "true"
         io.kompose.network/cryptrade-frontend: "true"
-        io.kompose.service: cryptradefront
+        io.kompose.service: usermanagement
     spec:
       containers:
-        - image: artemivl/cryptradefront:3.0.0
-          name: cryptradefront
+        - image: artemivl/usermanagement:latest
+          name: usermanagement
           ports:
-            - containerPort: 3000
-              hostPort: 8002
+            - containerPort: 443
+              hostPort: 8003
               protocol: TCP
       restartPolicy: Always

@@ -5,13 +5,13 @@ metadata:
     kompose.cmd: kompose convert -f docker-compose.yml
     kompose.version: 1.32.0 (HEAD)
   labels:
-    io.kompose.service: portfoliomanagement
-  name: portfoliomanagement
+    io.kompose.service: transactionmanagement
+  name: transactionmanagement
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: portfoliomanagement
+      io.kompose.service: transactionmanagement
   template:
     metadata:
       annotations:
@@ -20,13 +20,13 @@ spec:
       labels:
         io.kompose.network/cryptrade-backend: "true"
         io.kompose.network/cryptrade-frontend: "true"
-        io.kompose.service: portfoliomanagement
+        io.kompose.service: transactionmanagement
     spec:
       containers:
-        - image: artemivl/portfoliomanagement:3.0.0
-          name: portfoliomanagement
+        - image: artemivl/transactionmanagement:latest
+          name: transactionmanagement
           ports:
             - containerPort: 443
-              hostPort: 8004
+              hostPort: 8006
               protocol: TCP
       restartPolicy: Always

@@ -7,10 +7,7 @@ networks:
 services:
   usermanagement:
     container_name: usermanagement
-    image: ${DOCKER_REGISTRY-}usermanagement
-    build:
-      context: ./CryptradeBack
-      dockerfile: UserManagement/Dockerfile
+    image: artemivl/usermanagement:latest
     networks:
       - backend
       - frontend
@@ -19,10 +16,7 @@ services:
 
   portfoliomanagement:
     container_name: portfoliomanagement
-    image: ${DOCKER_REGISTRY-}portfoliomanagement
-    build:
-      context: ./CryptradeBack
-      dockerfile: PortfolioManagement/Dockerfile
+    image: artemivl/portfoliomanagement:latest
     networks:
       - backend
       - frontend
@@ -31,10 +25,7 @@ services:
 
   cryptocurrencydata:
     container_name: cryptocurrencydata
-    image: ${DOCKER_REGISTRY-}cryptocurrencydata
-    build:
-      context: ./CryptradeBack
-      dockerfile: CryptocurrencyData/Dockerfile
+    image: artemivl/cryptocurrencydata:latest
     networks:
       - backend
       - frontend
@@ -43,10 +34,7 @@ services:
 
   transactionmanagement:
     container_name: transactionmanagement
-    image: ${DOCKER_REGISTRY-}transactionmanagement
-    build:
-      context: ./CryptradeBack
-      dockerfile: TransactionManagement/Dockerfile
+    image: artemivl/transactionmanagement:latest
     networks:
       - backend
       - frontend
@@ -65,10 +53,7 @@ services:
 
   cryptradefront:
     container_name: cryptradefront
-    image: ${DOCKER_REGISTRY-}cryptradefront
-    build:
-      context: ./cryptradefront
-      dockerfile: Dockerfile
+    image: artemivl/cryptradefront:latest
     networks:
       - frontend
     ports:
