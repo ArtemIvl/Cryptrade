@@ -4,10 +4,10 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
-COPY ["CryptradeBack/PortfolioManagement/PortfolioManagement.csproj", "PortfolioManagement/"]
+WORKDIR /CryptradeBack
+COPY ["PortfolioManagement/PortfolioManagement.csproj", "PortfolioManagement/"]
 RUN dotnet restore "PortfolioManagement/PortfolioManagement.csproj"
-WORKDIR "/src/PortfolioManagement"
+WORKDIR "/CryptradeBack/PortfolioManagement"
 COPY . .
 RUN dotnet build "PortfolioManagement.csproj" -c Release -o /app/build
 

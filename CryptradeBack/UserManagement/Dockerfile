@@ -4,10 +4,10 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
-COPY ["CryptradeBack/UserManagement/UserManagement.csproj", "UserManagement/"]
+WORKDIR /CryptradeBack
+COPY ["UserManagement/UserManagement.csproj", "UserManagement/"]
 RUN dotnet restore "UserManagement/UserManagement.csproj"
-WORKDIR "/src/UserManagement"
+WORKDIR "/CryptradeBack/UserManagement"
 COPY . .
 RUN dotnet build "UserManagement.csproj" -c Release -o /app/build
 

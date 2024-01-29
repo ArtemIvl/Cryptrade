@@ -4,10 +4,10 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
-COPY ["CryptradeBack/CryptocurrencyData/CryptocurrencyData.csproj", "CryptocurrencyData/"]
+WORKDIR /CryptradeBack
+COPY ["CryptocurrencyData/CryptocurrencyData.csproj", "CryptocurrencyData/"]
 RUN dotnet restore "CryptocurrencyData/CryptocurrencyData.csproj"
-WORKDIR "/src/CryptocurrencyData"
+WORKDIR "/CryptradeBack/CryptocurrencyData"
 COPY . .
 RUN dotnet build "CryptocurrencyData.csproj" -c Release -o /app/build
 
