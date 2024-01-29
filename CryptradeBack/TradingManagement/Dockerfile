@@ -9,8 +9,8 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["TradingManagement/TradingManagement.csproj", "TradingManagement/"]
 RUN dotnet restore "TradingManagement/TradingManagement.csproj"
-COPY . .
 WORKDIR "/src/TradingManagement"
+COPY . .
 RUN dotnet build "TradingManagement.csproj" -c Release -o /app/build
 
 FROM build AS publish

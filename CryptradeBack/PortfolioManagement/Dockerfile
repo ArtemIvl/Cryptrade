@@ -7,8 +7,8 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["CryptradeBack/PortfolioManagement/PortfolioManagement.csproj", "PortfolioManagement/"]
 RUN dotnet restore "PortfolioManagement/PortfolioManagement.csproj"
-COPY . .
 WORKDIR "/src/PortfolioManagement"
+COPY . .
 RUN dotnet build "PortfolioManagement.csproj" -c Release -o /app/build
 
 FROM build AS publish
