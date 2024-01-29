@@ -33,6 +33,7 @@
     <None Remove="Controllers\" />
     <None Remove="Services\" />
     <None Remove="Data\" />
+    <None Remove="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -40,5 +41,6 @@
     <Folder Include="Controllers\" />
     <Folder Include="Services\" />
     <Folder Include="Data\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 </Project>

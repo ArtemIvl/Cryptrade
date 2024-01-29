@@ -1,4 +1,3 @@
-
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
@@ -6,7 +5,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["CryptocurrencyData/CryptocurrencyData.csproj", "CryptocurrencyData/"]
+COPY ["CryptocurrencyData.csproj", "CryptocurrencyData/"]
 RUN dotnet restore "CryptocurrencyData/CryptocurrencyData.csproj"
 WORKDIR "/src/CryptocurrencyData"
 COPY . .

@@ -1,19 +1,21 @@
-﻿using System;
-using CryptocurrencyData.Entity;
+﻿using Microsoft.AspNetCore.Mvc;
 using CryptocurrencyData.Services;
-using Microsoft.AspNetCore.Mvc;
+using CryptocurrencyData.Entity;
+using System;
+using System.Threading.Tasks;
+using CryptocurrencyData.Interfaces;
 
 namespace CryptocurrencyData.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CryptoController : ControllerBase
-	{
-        private readonly CryptoService _cryptoService;
+    {
+        private readonly ICryptoService _cryptoService;
 
-        public CryptoController(CryptoService cryptoService)
+        public CryptoController(ICryptoService cryptoService)
         {
-            _cryptoService = cryptoService;
+            _cryptoService = cryptoService ?? throw new ArgumentNullException(nameof(cryptoService));
         }
 
         [HttpGet]
@@ -26,7 +28,6 @@ namespace CryptocurrencyData.Controllers
             }
             catch (Exception ex)
             {
-                // Handle exceptions and return an error response
                 return StatusCode(500, new { message = "An error occurred while fetching data." + ex.ToString() });
             }
         }
@@ -64,8 +65,8 @@ namespace CryptocurrencyData.Controllers
         {
             try
             {
-                var searchRsult = await _cryptoService.SearchCrypto(searchTerm);
-                return Ok(searchRsult);
+                var searchResult = await _cryptoService.SearchCrypto(searchTerm);
+                return Ok(searchResult);
             }
             catch (Exception ex)
             {
@@ -94,4 +95,3 @@ namespace CryptocurrencyData.Controllers
         }
     }
 }
-

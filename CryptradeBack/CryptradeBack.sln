@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingManagement", "Tradin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{CCCFC702-867D-42E9-BE8E-BB5366006670}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{FE486ADF-9124-4BE1-A904-F0A98C0B2475}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{CCCFC702-867D-42E9-BE8E-BB5366006670}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCCFC702-867D-42E9-BE8E-BB5366006670}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCCFC702-867D-42E9-BE8E-BB5366006670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE486ADF-9124-4BE1-A904-F0A98C0B2475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE486ADF-9124-4BE1-A904-F0A98C0B2475}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE486ADF-9124-4BE1-A904-F0A98C0B2475}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE486ADF-9124-4BE1-A904-F0A98C0B2475}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
