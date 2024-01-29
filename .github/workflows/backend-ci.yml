@@ -42,13 +42,13 @@ jobs:
       matrix: 
         include:
           - image: usermanagement
-            dockerfile: CryptradeBack/UserManagement/Dockerfile
+            dockerfile: UserManagement/Dockerfile
           - image: cryptocurrencydata
-            dockerfile: CryptradeBack/CryptocurrencyData/Dockerfile
+            dockerfile: CryptocurrencyData/Dockerfile
           - image: portfoliomanagement
-            dockerfile: CryptradeBack/PortfolioManagement/Dockerfile
+            dockerfile: PortfolioManagement/Dockerfile
           - image: transactionmanagement
-            dockerfile: CryptradeBack/TransactionManagement/Dockerfile
+            dockerfile: TransactionManagement/Dockerfile
             
     steps:
       -
