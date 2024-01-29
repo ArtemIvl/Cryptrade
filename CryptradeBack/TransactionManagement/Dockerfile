@@ -5,10 +5,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["TransactionManagement.csproj", "TransactionManagement/"]
+COPY ["TransactionManagement/TransactionManagement.csproj", "TransactionManagement/"]
 RUN dotnet restore "TransactionManagement/TransactionManagement.csproj"
-WORKDIR "/src/TransactionManagement"
 COPY . .
+WORKDIR "/src/TransactionManagement"
 RUN dotnet build "TransactionManagement.csproj" -c Release -o /app/build
 
 FROM build AS publish
