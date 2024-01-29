@@ -15,6 +15,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Start docker
+        uses: actions/docker/cli@v1
+        with:
+          run: docker-compose up -d
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
