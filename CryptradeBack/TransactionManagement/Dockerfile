@@ -4,7 +4,7 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /CryptradeBack
+WORKDIR "/src/CryptradeBack"
 COPY ["TransactionManagement/TransactionManagement.csproj", "TransactionManagement/"]
 RUN dotnet restore "TransactionManagement/TransactionManagement.csproj"
 WORKDIR "/CryptradeBack/TransactionManagement"
