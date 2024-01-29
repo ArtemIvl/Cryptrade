@@ -8,7 +8,7 @@ WORKDIR /src
 COPY ["CryptocurrencyData/CryptocurrencyData.csproj", "CryptocurrencyData/"]
 RUN dotnet restore "CryptocurrencyData/CryptocurrencyData.csproj"
 COPY . .
-WORKDIR "/CryptradeBack/CryptocurrencyData/"
+WORKDIR "/src/CryptocurrencyData"
 RUN dotnet build "CryptocurrencyData.csproj" -c Release -o /app/build
 
 FROM build AS publish

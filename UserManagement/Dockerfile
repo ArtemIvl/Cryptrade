@@ -8,7 +8,7 @@ WORKDIR /src
 COPY ["UserManagement/UserManagement.csproj", "UserManagement/"]
 RUN dotnet restore "UserManagement/UserManagement.csproj"
 COPY . .
-WORKDIR "/CryptradeBack/UserManagement/"
+WORKDIR "/src/UserManagement"
 RUN dotnet build "UserManagement.csproj" -c Release -o /app/build
 
 FROM build AS publish

@@ -8,7 +8,7 @@ WORKDIR /src
 COPY ["PortfolioManagement/PortfolioManagement.csproj", "PortfolioManagement/"]
 RUN dotnet restore "PortfolioManagement/PortfolioManagement.csproj"
 COPY . .
-WORKDIR "/CryptradeBack/PortfolioManagement/"
+WORKDIR "/src/PortfolioManagement"
 RUN dotnet build "PortfolioManagement.csproj" -c Release -o /app/build
 
 FROM build AS publish

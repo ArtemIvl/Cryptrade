@@ -8,7 +8,7 @@ WORKDIR /src
 COPY ["TransactionManagement/TransactionManagement.csproj", "TransactionManagement/"]
 RUN dotnet restore "TransactionManagement/TransactionManagement.csproj"
 COPY . .
-WORKDIR "/CryptradeBack/TransactionManagement/"
+WORKDIR "/src/TransactionManagement"
 RUN dotnet build "TransactionManagement.csproj" -c Release -o /app/build
 
 FROM build AS publish
